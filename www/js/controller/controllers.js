@@ -1,0 +1,1 @@
+angular.module('starter.controllers', ['ngResource','base64', 'ServiceModule', 'ValConstantService', 'ConfigModule'])

@@ -1,0 +1,24 @@
+<!-- Login page -->
+
+<ion-view title="Login">
+<ion-content>  
+<div ng-controller="Login">
+  <div class="col">
+    <form ng-submit="">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" placeholder="User Name" ng-model="username">
+        </label>
+        <label class="item item-input">
+          <input type="password" placeholder="Password" ng-model="password">
+        </label>
+      </div>
+      <div class="padding">
+        <button class="button button-block button-assertive" ng-click="doLogin()">Submit</button>
+        
+      </div>
+    </form>
+  </div>
+</div>
+</ion-content>
+</ion-view>
