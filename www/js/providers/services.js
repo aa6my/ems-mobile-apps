@@ -7,7 +7,7 @@ angular
 .factory('Settings', function() {
   return {
 
-      url     : 'http://ems.alibis.segimidae.net/'
+      url     : 'http://192.168.0.200/employee-management-system'
   };
 })
 

@@ -7,8 +7,8 @@ var apps = angular.module('loginModule', []);
     url = Settings.url;
 
     /** Using dummy data for development testing only */
-   /* $scope.username = 'admin@admin.com';
-    $scope.password = '!@#$!@#$';*/
+    $scope.username = 'admin@admin.com';
+    $scope.password = '!@#$!@#$';
     /* remove this in production environment */
    
   $scope.doLogin = function(){
