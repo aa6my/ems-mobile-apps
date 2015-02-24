@@ -4,11 +4,11 @@ var apps = angular.module('loginModule', []);
   $ionicSideMenuDelegate.canDragContent(false);
 
 
-    url = Settings.url;
+    url = Settings.url + '/dataAll/type/employees/format/json';
 
     /** Using dummy data for development testing only */
-    $scope.username = '';
-    $scope.password = '';
+    $scope.username = 'admin@admin.com';
+    $scope.password = 123456;
     /* remove this in production environment */
    
   $scope.doLogin = function(){

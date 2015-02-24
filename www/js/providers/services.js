@@ -7,7 +7,7 @@ angular
 .factory('Settings', function() {
   return {
 
-      url     : 'http://192.168.0.200/employee-management-system'
+      url     : 'http://192.168.0.200/ems/api'
   };
 })
 
@@ -148,6 +148,13 @@ angular
                 return jenis;
        }
        /*-- end here --*/
+
+       func.redraw = function(value){
+            return function(){
+                    $('.footable').trigger('footable_redraw');
+                      return value;
+                    }
+       }
 
        return func;
 })
