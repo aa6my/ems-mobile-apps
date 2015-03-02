@@ -7,7 +7,7 @@ angular
 .factory('Settings', function() {
   return {
 
-      url     : 'http://192.168.0.200/ems/api'
+     /* url     : 'http://192.168.0.202/x/x'*/
   };
 })
 

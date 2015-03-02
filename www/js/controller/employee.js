@@ -14,7 +14,7 @@ var apps = angular.module('employeeModule', ['ionic']);
         /*---------------------------------------------------------------*/
         
          var url = Settings.url + '/dataAll/type/employees/format/json';
-              
+            console.log(url);     
               $http
                 .get(url, Auth.doAuth(init.username, init.password))
                 .success(function(data){
