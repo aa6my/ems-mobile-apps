@@ -9,7 +9,8 @@ angular.module('starter', ['ionic', 'starter.controllers',
                           'ServiceModule',
                           'employeeModule',
                           'serverModule',
-                          'loginModule'
+                          'loginModule',
+                          'signoutModule'
                           ])
 
 .run(function($ionicPlatform) {
