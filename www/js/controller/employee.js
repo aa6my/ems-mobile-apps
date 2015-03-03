@@ -39,7 +39,32 @@ var apps = angular.module('employeeModule', ['ionic']);
               });
             };
                
-              
+            $scope.groups = [];
+            $scope.groups = [ {
+                                name : 'Details', items : []
+                              },
+                              {
+                                name : 'Address', items : []
+                              },
+                              {
+                                name : 'Educations', items : []
+                              }];
+
+            $scope.groups[0].items = ['<input type="text">',2,3];
+            $scope.groups[1].items = [4,5,6];
+            $scope.groups[2].items = [7,8,9];
+
+            
+            $scope.toggleGroup = function(group) {
+              if ($scope.isGroupShown(group)) {
+                $scope.shownGroup = null;
+              } else {
+                $scope.shownGroup = group;
+              }
+            };
+            $scope.isGroupShown = function(group) {
+              return $scope.shownGroup === group;
+            };  
 
       })
 

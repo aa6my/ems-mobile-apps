@@ -7,7 +7,8 @@ angular
 .factory('Settings', function() {
   return {
 
-     /* url     : 'http://192.168.0.202/x/x'*/
+      //url     : 'http://192.168.0.202/x/x'
+      url     : 'http://localhost/ems/x/x'
   };
 })
 

@@ -4,12 +4,8 @@
     <ion-nav-buttons side="left">
         <button menu-toggle="left"class="button button-icon icon ion-android-arrow-back"></button>
     </ion-nav-buttons>
+<div ng-controller="Employee">
     <!-- content-->
-
-    <ion-content>
-    Employee   
-    </ion-content>
-
     <ion-content class="background">
         <ion-refresher
         pulling-text="Pull to refresh..."
@@ -105,5 +101,12 @@
       </ion-list>
 </ion-content>
 </div>
-
 </ion-view>
+
+<script type="text/javascript">
+    $(function () {
+
+        $('table').footable();
+       
+    });
+</script>

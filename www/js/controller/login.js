@@ -8,8 +8,9 @@ var apps_login = angular.module('loginModule', []);
   $ionicSideMenuDelegate.canDragContent(false);
   
   
-    url = 'http://' +Settings.domain_name+ '/x/x/dataAll/type/employees/format/json';
-   // url = 'http://192.168.0.202/x/x/dataAll/type/employees/format/json';
+    //url = 'http://' +Settings.domain_name+ '/x/x/dataAll/type/employees/format/json';
+    //url = 'http://192.168.0.202/x/x/dataAll/type/employees/format/json';
+    url = 'http://localhost/ems/x/x/dataAll/type/employees/format/json';
 
     /** Using dummy data for development testing only */
     $scope.username = 'admin@admin.com';
@@ -35,7 +36,9 @@ var apps_login = angular.module('loginModule', []);
              
           init.username   = user.username;
           init.password   = user.password;
-          Settings.url    = 'http://'+Settings.domain_name+'/x/x';
+          //Settings.url    = 'http://'+Settings.domain_name+'/x/x';
+          //Settings.url    = 'http://192.168.0.202/x/x';
+          Settings.url    = 'http://localhost/ems/x/x';
           $state.go('app.dashboard');
           console.log(Settings.url);
         })
