@@ -1,19 +1,16 @@
- .hitam {
-    background-color: #3f4041;
+   
+    .sidebg {
+        background-color: #3f4041;
     }
-    .background {
-    background-color: #d3d3c9;
-    color: #000000;
-    }
-
-    .hitam .item, .hitam .item-content, .hitam .item-complex{
-    background-color: rgba(0,0,0,0);
-    color: #FFFFFF;
-    border: none;
-    border-top: 1px solid #464646;
-    border-bottom: 2px solid #333333;
-    color: #F0F1F1;
-    max-height: none;
+    
+    .sidebg .item, .sidebg .item-content, .sidebg .item-complex{
+        background-color: rgba(0,0,0,0);
+        color: #FFFFFF;
+        border: none;
+        border-top: 1px solid #464646;
+        border-bottom: 2px solid #333333;
+        color: #F0F1F1;
+        max-height: none;
     }
     
     .logo{
@@ -25,11 +22,11 @@
         color: #555555;
     }
 
-     .bg {
-    background-color: #172434;
-    -moz-box-shadow:    inset 0 0 40px #000000;
-   -webkit-box-shadow: inset 0 0 40px #000000;
-     box-shadow:         inset 0 0 40px #000000;
+    .bg {
+        background-color: #172434;
+        -moz-box-shadow:    inset 0 0 40px #000000;
+        -webkit-box-shadow: inset 0 0 40px #000000;
+        box-shadow:         inset 0 0 40px #000000;
     }
 
     .circle {
@@ -38,7 +35,7 @@
     }
 
     .spacing{
-    margin-top: 50px;     
+        margin-top: 50px;     
     }
 
     .trans{
@@ -58,5 +55,5 @@
 
     .trans .item{
         border-style: none !important;
-         border-width: 0;
+        border-width: 0;
     }
