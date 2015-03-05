@@ -62,6 +62,14 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
       }
     }
   })
+  .state('app.employeeAdd_Edit', {
+    url: "/employeeAdd_Edit",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/employeeAdd_Edit.html"
+      }
+    }
+  })
   .state('app.skills', {
     url: "/skills",
     views: {

@@ -270,14 +270,35 @@ angular
        * @param {[type]} data   [cumpolsary : form data from view form]
        * @param {[type]} stateToRedirect   [optional : redirect to state function]
        */
-      operation.add = function(params, data, stateToRedirect){
+      operation.add = function(params, data, stateToRedirect, reload){
         
           var url             = Settings.url + params;
+          var reload          = (reload === undefined || reload === null || reload === "") ? false : true;
           var stateToRedirect = (stateToRedirect === undefined || stateToRedirect === null || stateToRedirect === "") ? $state.current : stateToRedirect;
 
                   $http.post(url,data, Auth.doAuth(init.username, init.password))
                   .success(function(data) {            
-                    $state.go(stateToRedirect, {}, {reload: false});//reload : false(default boolean) - set to true if want to reload controller/view/page after submit data
+                    $state.go(stateToRedirect, {}, {reload: reload});//reload : false(default boolean) - set to true if want to reload controller/view/page after submit data
+
+                  })
+                  .error(function(data, status, headers, config){
+                    console.log(config);            
+                  }) 
+      }
+
+      operation.add_no_redirect = function(params, data){
+        
+          var url             = Settings.url + params;
+          //var reload          = (reload === undefined || reload === null || reload === "") ? false : true;
+          //var stateToRedirect = (stateToRedirect === undefined || stateToRedirect === null || stateToRedirect === "") ? $state.current : stateToRedirect;
+
+          var f = $http.post(url,data, Auth.doAuth(init.username, init.password));
+              return f.success(function(response) {            
+                    var data = response.data,
+                                status = response.status,
+                                header = response.header,
+                                config = response.config;
+                                return status;
 
                   })
                   .error(function(data, status, headers, config){
@@ -287,15 +308,34 @@ angular
 
 
 
-      operation.update = function(params, data, stateToRedirect){
+      operation.update = function(params, data, stateToRedirect, reload){
         
           var url = Settings.url + params;
+          var reload          = (reload === undefined || reload === null || reload === "") ? false : true;
           var stateToRedirect = (stateToRedirect === undefined || stateToRedirect === null || stateToRedirect === "") ? $state.current : stateToRedirect;
 
                   $http.post(url,data, Auth.doAuth(init.username, init.password, 'PUT')) /* <----- different here with add method -- */
                   .success(function(data) {
                     
-                    $state.go(stateToRedirect, {}, {reload: false});//reload : false(default boolean) - set to true if want to reload controller/view/page after submit data
+                    $state.go(stateToRedirect, {}, {reload: reload});//reload : false(default boolean) - set to true if want to reload controller/view/page after submit data
+
+                  })
+                  .error(function(data, status, headers, config){
+                    console.log(config);
+                    
+                  }) 
+      }
+
+      operation.update_no_redirect = function(params, data){
+        
+          var url = Settings.url + params;          
+          var j   = $http.post(url,data, Auth.doAuth(init.username, init.password, 'PUT')); 
+              return j.success(function(response) {
+                   var data = response.data,
+                                status = response.status,
+                                header = response.header,
+                                config = response.config;
+                                return status;
 
                   })
                   .error(function(data, status, headers, config){
@@ -309,7 +349,7 @@ angular
         
           var url = Settings.url + params;
           var kk = [];
-          //var stateToRedirect = (stateToRedirect === undefined || stateToRedirect === null || stateToRedirect === "") ? $state.current : stateToRedirect;
+          
 
                 var a =    $http.get(url, Auth.doAuth(init.username, init.password));
                 return a.success( function(response) {
@@ -326,21 +366,7 @@ angular
                                 config = response.config;
                             
                         } );
-                //console.log(a.success.response);
-                         /* <----- different here with add method -- */
-                  //return a.success(function(data) {
-                    //var data = data;
-                    //return data;
-                    //return data;
-                    //$state.go(stateToRedirect, {}, {reload: false});//reload : false(default boolean) - set to true if want to reload controller/view/page after submit data
-
-                  /*;
-                  a.error(function(data, status, headers, config){
-                    //console.log(config);
-                    
-                  });*/
-
-                   //return a;
+                
       }
 
 
