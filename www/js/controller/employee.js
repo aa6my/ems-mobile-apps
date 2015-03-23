@@ -1,5 +1,5 @@
 var apps = angular.module('employeeModule', ['ionic']);
-    apps.controller('Employee',function($scope,$http, $state,$ionicPopup,$ionicModal, Settings, init, Auth, UniversalFunction, CrudOperation) {
+    apps.controller('Employee',function($scope,$http, $state,$ionicPopup,$ionicModal, Settings, init, Auth, UniversalFunction, CrudOperation, tempService) {
        
           /*=============== employee(initial start of page will call this part) ============================= */
         
@@ -60,6 +60,7 @@ var apps = angular.module('employeeModule', ['ionic']);
         };
 
         
+        /*---------------------- modal box -------------------------------*/
         $ionicModal.fromTemplateUrl('modal_education.html', {
             scope: $scope,
             animation: 'slide-in-up',
@@ -68,22 +69,118 @@ var apps = angular.module('employeeModule', ['ionic']);
             $scope.modal_education = modal
         });
 
+        $ionicModal.fromTemplateUrl('modal_employement.html', {
+            scope: $scope,
+            animation: 'slide-in-up',
+            focusFirstInput: true
+        }).then(function(modal) {
+            $scope.modal_employement = modal
+        });
+
+        $ionicModal.fromTemplateUrl('modal_license.html', {
+            scope: $scope,
+            animation: 'slide-in-up',
+            focusFirstInput: true
+        }).then(function(modal) {
+            $scope.modal_license = modal
+        });
+
+        $ionicModal.fromTemplateUrl('modal_family.html', {
+            scope: $scope,
+            animation: 'slide-in-up',
+            focusFirstInput: true
+        }).then(function(modal) {
+            $scope.modal_family = modal
+        });
+        /*---------------------- end modal box -------------------------------*/
          
-         //var k = [{}];         
-             //a = 0;
+         /*------------------ education --------------------*/
+        var dataEdu = [{institution : '',
+                  description : '',
+                  start : '',
+                  end : ''}];
+            dataEdu.splice(0,1);
         $scope.edu_data = [];
         $scope.add_education = function(edu){
-              //edu.id = a;
-              //a++;
-              //console.log(k);
-              $scope.edu_data.push(edu);
-              console.log($scope.edu_data);
-              console.log(edu);
-
-              //$scope.edu_data = k;
-             
+              
+              dataEdu.push({
+                  institution : edu.institution,
+                  description : edu.description,
+                  start : edu.start,
+                  end : edu.end
+                });
+              
+              $scope.edu_data = dataEdu;
              
         }
+        /*-------------- end education -----------------------*/
+
+        /*------------------ employeement --------------------*/
+        var dataEmp = [{
+                  company           : '',
+                  position          : '',
+                  start             : '',
+                  end               : '',
+                  responsibilities  : ''
+                }];
+            dataEmp.splice(0,1);
+        $scope.emp_data = [];
+        $scope.add_employement = function(emp){
+              
+              dataEmp.push({
+                  company           : emp.company,
+                  position          : emp.position,
+                  start             : emp.start,
+                  end               : emp.end,
+                  responsibilities  : emp.responsibilities
+                });
+              
+              $scope.emp_data = dataEmp;
+             
+        }
+        /*-------------- end employeement -----------------------*/
+
+        /*------------------ license --------------------*/
+        var dataLic = [{
+                  license_name    : '',
+                  license_number  : '',
+                  license_expiry  : ''
+                }];
+            dataLic.splice(0,1);
+        $scope.lic_data = [];
+        $scope.add_license = function(lic){
+              
+              dataLic.push({
+                  license_name    : lic.license_name,
+                  license_number  : lic.license_number,
+                  license_expiry  : lic.license_expiry
+                });
+              
+              $scope.lic_data = dataLic;
+             
+        }
+        /*-------------- end License -----------------------*/
+
+        /*------------------ family --------------------*/
+        var dataFam = [{
+                  relative_name     : '',
+                  relative_type     : '',
+                  birht_date        : ''
+                }];
+            dataFam.splice(0,1);
+        $scope.fam_data = [];
+        $scope.add_family = function(fam){
+              
+              dataFam.push({
+                  relative_name     : fam.relative_name,
+                  relative_type     : fam.relative_type,
+                  birht_date        : fam.birht_date
+                });
+              
+              $scope.fam_data = dataFam;
+             
+        }
+        /*-------------- end family -----------------------*/
 
          
         
@@ -91,26 +188,87 @@ var apps = angular.module('employeeModule', ['ionic']);
         /*================================ Add function ================================*/
         $scope.addData  = function(){
 
-        
-          var params      = '/dataAll';                   // request Api link
-          var data        = {                             // data sent to Api
+          var h = [];
+              h.push(this.formData);
+       
+          var params      = '/dataAll';                  
+          var data        = {                            
                               type : "employees", 
-                              formData : this.formData
+                              formData : h
                         };
-          var stateToRedirect = 'app.employees';
-          CrudOperation.add_no_redirect(params, data).success(function(){
-            CrudOperation.get('/dataOrderBy/type/employees/order_id/employee_id/order_val/desc').success(function(data){
-              var employee_id =  data.employees.employee_id;
-
-                  //angular.forEach(k, function(value, key) {
-                    //console.log(k);
-                  //});
-              //console.log(data.employees.employee_id);
+          
+          CrudOperation.add_no_redirect(params, data).success(function(){   // insert into employee
+            CrudOperation.get('/dataOrderBy/type/employees/order_id/employee_id/order_val/desc').success(function(data){ // get employee id
+             var employee_id =  data.employees.employee_id;
               
-            })
+                // Populate edu data
+                angular.forEach(dataEdu,function(value, key){
+                  dataEdu[key].employee_id = employee_id;
+                });
+
+                var data        = {                            
+                                    type : "employees_education", 
+                                    formData : dataEdu
+                                  };
+                CrudOperation.add_no_redirect(params, data).success(function(){ // insert into education
+
+                    // Populate emp data
+                    angular.forEach(dataEmp,function(value, key){
+                         dataEmp[key].employee_id = employee_id;
+                    });
+
+                    var data        = {                            
+                                        type : "employees_employment", 
+                                        formData : dataEmp
+                                      };
+                    CrudOperation.add_no_redirect(params, data).success(function(){ // insert into employement
+                         
+                        // Populate lic data
+                        angular.forEach(dataLic,function(value, key){
+                             dataLic[key].employee_id = employee_id;
+                        });
+
+                        var data        = {                            
+                                            type : "employees_licenses", 
+                                            formData : dataLic
+                                          };
+                         CrudOperation.add_no_redirect(params, data).success(function(){ // insert into license
+
+                              // Populate fam data
+                              angular.forEach(dataFam,function(value, key){
+                                   dataFam[key].employee_id = employee_id;
+                              });
+
+                              var data        = {                            
+                                                  type : "employees_family", 
+                                                  formData : dataFam
+                                                };
+                              CrudOperation.add_no_redirect(params, data).success(function(){ // insert into family
+
+
+                              });
+                         });
+                    });                  
+                });   
+            });
           })
         } 
         /*================================ End Add function ================================*/
 
+})
+.factory('tempService', function(){
+  var func     = {};
+  var formData = [];
+
+  func.addData = function(edu){
+
+    formData.push(edu);
+  }
+
+  func.returnData = function(){
+    return formData;
+  }
+
+  return func;
 })
 

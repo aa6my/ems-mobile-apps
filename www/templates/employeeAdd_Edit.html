@@ -136,13 +136,75 @@
                         </div>
                 </accordion-group>
                 <!-- details -->
+
+                <!-- details -->
+                <accordion-group is-open="status.open2">
+                    <accordion-heading>
+                        Employment <i class="pull-right glyphicon" ng-class="{'ion-chevron-down': status.open1, 'ion-chevron-right': !status.open1}"></i>
+                    </accordion-heading>
+
+                    <div class="btn-group">
+                          <ul class="list-group">
+                              <li class="list-group-item" ng-repeat="ed in emp_data track by $index">
+                                 <span class="label label-info">Company</span> : {{::ed.company}} <br/>
+                                 <span class="label label-info">Position</span> : {{::ed.position}} <br/>
+                                 <span class="label label-info">Start - End</span> : {{::ed.start}}  -  {{::ed.end}}<br/>
+                                 <span class="label label-info">Responsibility</span> : {{::ed.responsibilities}}<br/>
+                              </li>
+                              
+                          </ul>
+                          <button type="button" class="btn btn-warning btn-sm" ng-click="modal_employement.show()">Add</button>
+                        </div>
+                </accordion-group>
+                <!-- details -->
+
+                <!-- details -->
+                <accordion-group is-open="status.open3">
+                    <accordion-heading>
+                        License <i class="pull-right glyphicon" ng-class="{'ion-chevron-down': status.open1, 'ion-chevron-right': !status.open1}"></i>
+                    </accordion-heading>
+
+                    <div class="btn-group">
+                          <ul class="list-group">
+                              <li class="list-group-item" ng-repeat="ed in lic_data track by $index">
+                                 <span class="label label-info">Name</span> : {{::ed.license_name}} <br/>
+                                 <span class="label label-info">Expiry</span> : {{::ed.license_expiry}} <br/>
+                                 <span class="label label-info">Number</span> : {{::ed.license_number}}<br/>
+                              </li>
+                              
+                          </ul>
+                          <button type="button" class="btn btn-warning btn-sm" ng-click="modal_license.show()">Add</button>
+                        </div>
+                </accordion-group>
+                <!-- details -->
+
+
+                <!-- details -->
+                <accordion-group is-open="status.open4">
+                    <accordion-heading>
+                        Family <i class="pull-right glyphicon" ng-class="{'ion-chevron-down': status.open1, 'ion-chevron-right': !status.open1}"></i>
+                    </accordion-heading>
+
+                    <div class="btn-group">
+                          <ul class="list-group">
+                              <li class="list-group-item" ng-repeat="ed in fam_data track by $index">
+                                 <span class="label label-info">Name</span> : {{::ed.relative_name}} <br/>
+                                 <span class="label label-info">Birthday</span> : {{::ed.birht_date}} <br/>
+                                 <span class="label label-info">Relative</span> : {{::ed.relative_type}}<br/>
+                              </li>
+                              
+                          </ul>
+                          <button type="button" class="btn btn-warning btn-sm" ng-click="modal_family.show()">Add</button>
+                        </div>
+                </accordion-group>
+                <!-- details -->
             </accordion>
         </div>
-        <script id="modal_education.html" type="text/ng-template">
+                  <script id="modal_education.html" type="text/ng-template">
                       <ion-modal-view >
                         <ion-header-bar class="bar bar-header head">
                           <h1 class="title">{{myModal.title}}</h1>
-                          <button class="button button-clear button-primary" ng-click="modal_product.hide()">Cancel</button>
+                          <button class="button button-clear button-primary" ng-click="modal_education.hide()">Cancel</button>
                         </ion-header-bar>
                         <ion-content class="padding">
                           <div class="list">
@@ -171,7 +233,118 @@
                           </div>
                         </ion-content>
                       </ion-modal-view>
-                    </script>
+                  </script>
+
+                  <script id="modal_employement.html" type="text/ng-template">
+                      <ion-modal-view >
+                        <ion-header-bar class="bar bar-header head">
+                          <h1 class="title">{{myModal.title}}</h1>
+                          <button class="button button-clear button-primary" ng-click="modal_employement.hide()">Cancel</button>
+                        </ion-header-bar>
+                        <ion-content class="padding">
+                          <div class="list">
+                          
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Company" ng-model="emp.company"> 
+                                </label>                                                                           
+                            </div>
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Position" ng-model="emp.position"> 
+                                </label>                                                                           
+                            </div>
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Start" ng-model="emp.start"> 
+                                </label>&nbsp;
+                                <label class="item-input-wrapper">
+                                  <input type="text" placeholder="End" ng-model="emp.end"> 
+                                </label>                                                                           
+                            </div>
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Responsibilities" ng-model="emp.responsibilities"> 
+                                </label>                                                                           
+                            </div>
+                       
+                            <button class="button button-full button-assertive" ng-click="add_employement(emp)">Add</button>
+                            <!--<button class="button button-full button-assertive" ng-click="editTaskData()" ng-show="s_button" ng-init="false">Save</button>-->
+                          </div>
+                        </ion-content>
+                      </ion-modal-view>
+                  </script>
+
+
+                  <script id="modal_license.html" type="text/ng-template">
+                      <ion-modal-view >
+                        <ion-header-bar class="bar bar-header head">
+                          <h1 class="title">{{myModal.title}}</h1>
+                          <button class="button button-clear button-primary" ng-click="modal_license.hide()">Cancel</button>
+                        </ion-header-bar>
+                        <ion-content class="padding">
+                          <div class="list">
+                          
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Name" ng-model="lic.license_name"> 
+                                </label>                                                                           
+                            </div>
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Number" ng-model="lic.license_number"> 
+                                </label>                                                                           
+                            </div>                            
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Expiry" ng-model="lic.license_expiry"> 
+                                </label>                                                                           
+                            </div>
+                       
+                            <button class="button button-full button-assertive" ng-click="add_license(lic)">Add</button>
+                            <!--<button class="button button-full button-assertive" ng-click="editTaskData()" ng-show="s_button" ng-init="false">Save</button>-->
+                          </div>
+                        </ion-content>
+                      </ion-modal-view>
+                  </script>
+
+
+                  <script id="modal_family.html" type="text/ng-template">
+                      <ion-modal-view >
+                        <ion-header-bar class="bar bar-header head">
+                          <h1 class="title">{{myModal.title}}</h1>
+                          <button class="button button-clear button-primary" ng-click="modal_family.hide()">Cancel</button>
+                        </ion-header-bar>
+                        <ion-content class="padding">
+                          <div class="list">
+                          
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Name" ng-model="fam.relative_name"> 
+                                </label>                                                                           
+                            </div>
+                            <div class="item item-input-inset" style="border:none">                        
+                              
+
+                                 <select class="form-control" ng-model="fam.relative_type">
+                                  <option value="">-Select Relative-</option>
+                                  <option value="partner">Husband/Wife</option>
+                                  <option value="child">Child</option>
+                                </select> 
+                                                                                                       
+                            </div>                            
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Birthdate" ng-model="fam.birht_date"> 
+                                </label>                                                                           
+                            </div>
+                       
+                            <button class="button button-full button-assertive" ng-click="add_family(fam)">Add</button>
+                            <!--<button class="button button-full button-assertive" ng-click="editTaskData()" ng-show="s_button" ng-init="false">Save</button>-->
+                          </div>
+                        </ion-content>
+                      </ion-modal-view>
+                  </script>
 </ion-content>
 
 <div class="tabs tabs-icon-only">
