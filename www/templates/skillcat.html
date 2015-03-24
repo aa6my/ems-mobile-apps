@@ -1,0 +1,102 @@
+<ion-view title="Skill Category">
+
+    <!--navigation button on top-->
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left"class="button button-icon icon ion-android-arrow-back"></button>
+    </ion-nav-buttons>
+    <!-- content-->
+    <div ng-controller="SkillCat">
+        <ion-content>
+            <ion-refresher
+            pulling-text="Pull to refresh"
+            on-refresh="doRefresh()">
+            </ion-refresher>
+            
+            <div class="ft-container">
+            
+                <table class="footable" data-page-size="5">
+                    <thead>
+                    <tr>
+                        <th>
+                           Skill Name
+                        </th>
+                        
+                        <th>
+                            Action
+                        </th>
+                    
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="category in skcat()">
+                        <td>{{::category.category_name}}</td>
+                        <td>
+                            <a class="ft-icon-color"><i class="icon ion-edit" ng-click='editCategory(category)'></i></a>
+                            <a class="ft-icon-color"><i class="icon ion-trash-b" ng-click="deleteData(category)"></i></a>
+                            
+
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <ul class="pagination"></ul>                        
+                        </td>
+                    </tr>
+                </tfoot>
+                </table>
+                <button class="button button-assertive ion-plus-circled" ng-click='newCategory()'> Add Category</button>
+            
+            
+            </div>
+            
+                <script id="category_Add.html" type="text/ng-template">
+                      <ion-modal-view >
+                        <ion-header-bar class="bar bar-header head">
+                          <h1 class="title">Skill Category</h1>
+                          <button class="button button-clear button-primary" ng-click="category_Add.hide()">Cancel</button>
+                        </ion-header-bar>
+                        <ion-content class="padding">
+                            <div class="list">
+                          
+                                <div class="item item-input-inset" style="border:none">                        
+                                   <label class="item-input-wrapper">
+                                      <input type="text" placeholder="Category Name" ng-model="formData.category_name"> 
+                                    </label>                                                                           
+                                </div>
+                                
+                       
+                                <button class="button button-full button-assertive" ng-click="addData(formData)">Add</button>
+                                
+                            </div>
+                        </ion-content>
+                    </ion-modal-view>
+                </script>
+
+                 <script id="category_Edit.html" type="text/ng-template">
+                      <ion-modal-view >
+                        <ion-header-bar class="bar bar-header head">
+                          <h1 class="title">Skill Category</h1>
+                          <button class="button button-clear button-primary" ng-click="category_Edit.hide()">Cancel</button>
+                        </ion-header-bar>
+                        <ion-content class="padding">
+                            <div class="list">
+                          
+                                <div class="item item-input-inset" style="border:none">                        
+                                   <label class="item-input-wrapper">
+                                      <input type="text" placeholder="Category Name" ng-model="formData.category_name"> 
+                                    </label>                                                                           
+                                </div>
+                                
+                       
+                                <button class="button button-full button-assertive" ng-click="editData()">Save</button>
+                                
+                            </div>
+                        </ion-content>
+                    </ion-modal-view>
+                </script>
+        </ion-content>
+     
+    </div>
+</ion-view>

@@ -10,7 +10,9 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
                           'employeeModule',
                           'serverModule',
                           'loginModule',
-                          'signoutModule'
+                          'signoutModule',
+                          'skillModule',
+                          'skillcatModule'
                           ])
 
 .run(function($ionicPlatform) {
@@ -75,6 +77,22 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
     views: {
       'menuContent': {
         templateUrl: "templates/skills.html"
+      }
+    }
+  })
+  .state('app.skillAdd_Edit', {
+    url: "/skillAdd_Edit",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/skillAdd_Edit.html"
+      }
+    }
+  })
+  .state('app.skillcat', {
+    url: "/skillcat",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/skillcat.html"
       }
     }
   })

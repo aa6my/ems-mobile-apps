@@ -57,3 +57,8 @@
         border-style: none !important;
         border-width: 0;
     }
+
+    .ft-icon-color i{
+        color: black;
+        font-size: 25px;
+    }
