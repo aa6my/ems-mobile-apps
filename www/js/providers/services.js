@@ -8,7 +8,7 @@ angular
   return {
 
       //url     : 'http://192.168.0.202/x/x'
-      url     : 'http://localhost/ems/x/x'
+      /*url     : 'http://localhost/ems/x/x'*/
   };
 })
 
@@ -107,7 +107,7 @@ angular
  * call this function when needed
  * mostly suitable for process that can accessable by all controllers
  */
-.factory('UniversalFunction', function($http, Auth, init){
+.factory('UniversalFunction', function($http, Auth, init,$state){
 
    var func     = {};
    var formData = {};
@@ -155,6 +155,11 @@ angular
                     $('.footable').trigger('footable_redraw');
                       return value;
                     }
+       }
+       func.home_button = function(){
+
+        return $state.go('app.dashboard');
+
        }
 
        return func;

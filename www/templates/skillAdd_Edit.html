@@ -1,0 +1,48 @@
+<ion-view title="Add New Skills">
+
+    <!--navigation button on top-->
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left"class="button button-icon icon ion-android-arrow-back"></button>
+    </ion-nav-buttons>
+    <!-- content-->
+    <div ng-controller="Skill">
+
+        <ion-content>
+            <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="doRefresh()">
+            </ion-refresher>
+
+                <button class="button button-positive" ng-click="addData()" ng-show="btnAdd">Add</button> 
+                <button class="button button-positive" ng-click="editData()" ng-show="btnEdit">Save</button> 
+                <div class="item item-input-inset" style="border:none">
+
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Skill name</span>
+                        <input type="text" placeholder="Enter Skills Name" ng-model="formData.skill_name"> 
+                    </label>                    
+                </div>
+
+                <div class="item item-input-inset" style="border:none">
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Skill Requirements</span>
+                        <input type="text" placeholder="Enter Skills Requirements" ng-model="formData.skill_requirements"> 
+                    </label>                    
+                </div>
+
+                 <div class="item item-input-inset" style="border:none">
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Skill Category</span>
+                        <select class="input--select" ng-model="formData.parent_category" ng-options="skills_categories.category_id as skills_categories.category_name for skills_categories in skill_cat">
+                    </label>
+                </div>
+                <div>
+               
+
+                </div>
+                
+                
+        </ion-content>
+
+    </div>
+</ion-view>
