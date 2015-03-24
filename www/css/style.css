@@ -62,3 +62,7 @@
         color: black;
         font-size: 25px;
     }
+
+    .setting-button {
+        width: 167px;
+    }
