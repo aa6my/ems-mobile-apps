@@ -12,7 +12,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
                           'loginModule',
                           'signoutModule',
                           'skillModule',
-                          'skillcatModule'
+                          'skillcatModule',
+                          'settingModule'
                           ])
 
 .run(function($ionicPlatform) {
@@ -141,6 +142,14 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
     views: {
       'menuContent': {
         templateUrl: "templates/settings.html"
+      }
+    }
+  })
+  .state('app.company', {
+    url: "/company",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/company.html"
       }
     }
   })

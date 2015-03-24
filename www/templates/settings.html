@@ -2,7 +2,57 @@
 	<ion-nav-buttons side="left">
         <button menu-toggle="left"class="button button-icon icon ion-android-arrow-back"></button>
     </ion-nav-buttons>
+    <div ng-controller="Setting">
 	<ion-content>
-		settings
+
+		<div class="list">
+
+		  <a class="item item-icon-left" ng-click="goComp()">
+		    <i class="icon ion-briefcase"></i>
+		    Company
+		    <span class="item-note">
+		      Edit Company Details
+		    </span>
+		  </a>
+
+		  <a class="item item-icon-left" >
+		    <i class="icon ion-email"></i>
+		    Email
+		  </a>
+
+		  <a class="item item-icon-left" >
+		    <i class="icon ion-person"></i>
+		    Positions
+		    <span class="item-note">
+		      Modify positions
+		    </span>
+		  </a>
+
+		  <a class="item item-icon-left">
+		    <i class="icon ion-minus-circled"></i>
+		    Resign Reason
+		    <span class="item-note">
+		      List of employee resign reasons
+		    </span>
+		  </a>
+
+		  <a class="item item-icon-left">
+		    <i class="icon ion-bookmark"></i>
+		    Departments
+		    <span class="item-note">
+		      Add,edit and delete departments
+		    </span>
+		  </a>
+
+		  <a class="item item-icon-left">
+		    <i class="icon ion-alert-circled"></i>
+		    Processing Errors
+		    <span class="item-note">
+		     	List of errors
+		    </span>
+		  </a>
+
+		</div>
 	</ion-content>
+	</div>
 </ion-view>
