@@ -198,6 +198,28 @@
                         </div>
                 </accordion-group>
                 <!-- details -->
+
+
+                <!-- details -->
+                <accordion-group is-open="status.open5">
+                    <accordion-heading>
+                        Positions <i class="pull-right glyphicon" ng-class="{'ion-chevron-down': status.open1, 'ion-chevron-right': !status.open1}"></i>
+                    </accordion-heading>
+
+                    <div class="btn-group">
+                          <ul class="list-group">
+                              <li class="list-group-item" ng-repeat="ed in pos_data track by $index">
+                                 <span class="label label-info">Position id</span> : {{::ed.position_id}} <br/>
+                                 <span class="label label-info">Start</span> : {{::ed.start}}<br/>
+                                 <span class="label label-info">Responsiblity</span> : {{::ed.add_responsibilities}} <br/>
+                                 <span class="label label-info">Move reason</span> : {{::ed.move_reason}}<br/>
+                              </li>
+                              
+                          </ul>
+                          <button type="button" class="btn btn-warning btn-sm" ng-click="modal_position.show()">Add</button>
+                        </div>
+                </accordion-group>
+                <!-- details -->
             </accordion>
         </div>
                   <script id="modal_education.html" type="text/ng-template">
@@ -340,6 +362,51 @@
                             </div>
                        
                             <button class="button button-full button-assertive" ng-click="add_family(fam)">Add</button>
+                            <!--<button class="button button-full button-assertive" ng-click="editTaskData()" ng-show="s_button" ng-init="false">Save</button>-->
+                          </div>
+                        </ion-content>
+                      </ion-modal-view>
+                  </script>
+
+
+                  <script id="modal_position.html" type="text/ng-template">
+                      <ion-modal-view >
+                        <ion-header-bar class="bar bar-header head">
+                          <h1 class="title">{{myModal.title}}</h1>
+                          <button class="button button-clear button-primary" ng-click="modal_position.hide()">Cancel</button>
+                        </ion-header-bar>
+                        <ion-content class="padding">
+                          <div class="list">
+                          <div class="item item-input-inset" style="border:none">                        
+                              
+
+                                 <select class="form-control" ng-model="pos.position_id" id="pos_position_id">
+                                  <option value="">-Select position-</option>
+                                  <option value="{{::p.position_id}}" ng-repeat="p in position_employee" data-department_id="{{::p.department_id}}">{{::p.position_name}}</option>
+                                 
+                                </select> 
+                                <input type="hidden" ng-model="pos.department_id" value="" id="pos_department_id">
+                                                                                                       
+                            </div> 
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Start Date" ng-model="pos.start"> 
+                                </label>                                                                           
+                            </div>
+                                                       
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Responsibilities" ng-model="pos.add_responsibilities"> 
+                                </label>                                                                           
+                            </div>
+
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Move reason" ng-model="pos.move_reason"> 
+                                </label>                                                                           
+                            </div>
+                       
+                            <button class="button button-full button-assertive" ng-click="add_position(pos)">Add</button>
                             <!--<button class="button button-full button-assertive" ng-click="editTaskData()" ng-show="s_button" ng-init="false">Save</button>-->
                           </div>
                         </ion-content>

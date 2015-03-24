@@ -92,6 +92,14 @@ var apps = angular.module('employeeModule', ['ionic']);
         }).then(function(modal) {
             $scope.modal_family = modal
         });
+
+        $ionicModal.fromTemplateUrl('modal_position.html', {
+            scope: $scope,
+            animation: 'slide-in-up',
+            focusFirstInput: true
+        }).then(function(modal) {
+            $scope.modal_position = modal
+        });
         /*---------------------- end modal box -------------------------------*/
          
          /*------------------ education --------------------*/
@@ -182,6 +190,31 @@ var apps = angular.module('employeeModule', ['ionic']);
         }
         /*-------------- end family -----------------------*/
 
+        /*------------------ position --------------------*/
+        var dataPos = [{
+                  position_id           : '',
+                  department_id         : '',
+                  start                 : '',
+                  add_responsibilities  : '',
+                  move_reason           : ''
+                }];
+            dataPos.splice(0,1);
+        $scope.pos_data = [];
+        $scope.add_position = function(pos){
+              
+              dataPos.push({
+                  position_id           : pos.position_id,
+                  department_id         : pos.department_id,
+                  start                 : pos.start,
+                  add_responsibilities  : pos.add_responsibilities,
+                  move_reason           : pos.move_reason
+                });
+              
+              $scope.pos_data = dataPos;
+             
+        }
+        /*-------------- end position -----------------------*/
+
          
         
         
@@ -244,8 +277,18 @@ var apps = angular.module('employeeModule', ['ionic']);
                                                   formData : dataFam
                                                 };
                               CrudOperation.add_no_redirect(params, data).success(function(){ // insert into family
+                                  angular.forEach(dataPos,function(value, key){
+                                   dataPos[key].employee_id = employee_id;
+                                  });
 
-
+                                  var data        = {                            
+                                                  type : "employees_positions", 
+                                                  formData : dataPos
+                                                };
+                                   var stateToRedirect = 'app.employees';
+                                   CrudOperation.add(params, data, stateToRedirect); // insert into position
+                                    // skill bt lpas ni
+                                   
                               });
                          });
                     });                  
@@ -254,6 +297,15 @@ var apps = angular.module('employeeModule', ['ionic']);
           })
         } 
         /*================================ End Add function ================================*/
+        CrudOperation.get('/dataAll/type/positions/key/is_active/val/1/joinid/department_id/jointo/departments/format/json').success(function(data){ 
+              $scope.position_employee = data.positions;
+              
+        });
+
+        $(document).on('change', '#pos_position_id', function(){          
+          //$scope.pos.department_id = $(this).find("option:selected").data("department_id");
+          $('#pos_department_id').val($(this).find("option:selected").data("department_id"));
+        })
 
 })
 .factory('tempService', function(){
