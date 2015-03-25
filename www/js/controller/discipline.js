@@ -1,5 +1,5 @@
 var apps = angular.module('disciplineModule', ['ionic']);
-    apps.controller('Discipline',function($scope,$http, $state,$ionicPopup,$ionicModal, Settings, init, Auth, UniversalFunction, CrudOperation, tempService) {
+    apps.controller('Discipline',function($scope,$http, $state,$ionicPopup,$ionicModal, Settings, init, Auth, UniversalFunction, CrudOperation) {
        
           /*=============== employee(initial start of page will call this part) ============================= */
         
@@ -15,7 +15,7 @@ var apps = angular.module('disciplineModule', ['ionic']);
         
         var url = Settings.url + '/dataAll/type/discipline/joinid/employee_id/jointo/employees/format/json';
               
-        $http
+       $http
           .get(url, Auth.doAuth(init.username, init.password))
           .success(function(data){
                 
@@ -39,21 +39,62 @@ var apps = angular.module('disciplineModule', ['ionic']);
         };
                
 
-        $scope.goToAddDataPage = function(){
+        $scope.goToEditPage = function(discipline_id){
 
-          $state.go('app.employeeAdd_Edit',{},{reload:false});
-          /*------------- If click add new button show only submit button with save function--------------*/
-          var m = UniversalFunction.buttonOnly(true,false);
-          $scope.btnAdd = m.add;
-          $scope.btnEdit = m.edit;
-          /*---------------------------*/
-          /*---- set form value to blank */
-          UniversalFunction.displayFormData('');                   
-                  
+           CrudOperation.get('/dataAll/type/discipline/key/record_id/val/'+discipline_id+'/format/json').success(function(data){ 
+                
+                $scope.formData = data.discipline[0];
+                $scope.record_id = data.discipline[0].record_id;
+                $scope.s_button = false;
+                $scope.e_button = true;
+                $scope.modal_discipline.show();
+                
+          });                
+          
         }
 
+        /*================================ Edit function ================================*/
+                $scope.editData = function(discipline_id){
+
+                    var params     = '/dataAll';                  // request Api link
+                    var dataUpdate = {                             // field column need to update
+                                        date : $scope.formData.date,
+                                        employee_id : $scope.formData.employee_id,
+                                        headline : $scope.formData.headline,
+                                        description : $scope.formData.description,
+                                        taken_actions : $scope.formData.taken_actions,
+                                        comment : $scope.formData.comment
+                        };
+                    var data       = {                             // data sent to Api
+                                      type : "discipline",
+                                      primaryKey : 'record_id', 
+                                      primaryKeyVal : discipline_id,
+                                      formData : dataUpdate
+                        };
+                    $scope.modal_discipline.hide();
+                    var stateToRedirect = 'app.discipline';           // State that will redirect after update process success
+                    CrudOperation.update(params, data, stateToRedirect, true);  
+                } 
+        /*================================ End Edit function ================================*/
+
+        $scope.goToAddData = function(){
+                $scope.s_button = true;
+                $scope.e_button = false;
+                $scope.formData = "";
+                $scope.record_id = "";                
+                $scope.modal_discipline.show();
+        }
+
+        $scope.deleteData = function(record_id){
+
+                var params = '/dataAll/type/discipline/key/record_id/val/'+record_id;
+                CrudOperation.delete(params);
+             
+        }
+
+
         CrudOperation.get('/dataAll/type/employees/format/json').success(function(data){ 
-              $scope.employees = data.employees;
+                $scope.employees = data.employees;
               
         });
         
@@ -110,16 +151,13 @@ var apps = angular.module('disciplineModule', ['ionic']);
        
           var params      = '/dataAll';                  
           var data        = {                            
-                              type : "employees", 
+                              type : "discipline", 
                               formData : h
                         };
-          
-          CrudOperation.add_no_redirect(params, data).success(function(){   // insert into employee
-            CrudOperation.get('/dataOrderBy/type/employees/order_id/employee_id/order_val/desc').success(function(data){ // get employee id
-             var employee_id =  data.employees.employee_id;
-                
-            });
-          })
+          var stateToRedirect = 'app.discipline';
+          $scope.modal_discipline.hide();
+          CrudOperation.add(params, data);
+          //$state.go('app.employees',{},{reload:true});  
         } 
         
 })

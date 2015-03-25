@@ -3,16 +3,13 @@
         <button menu-toggle="left"class="button button-icon icon ion-android-arrow-back"></button>
     </ion-nav-buttons>
   	<div ng-controller="Discipline" ng-app="disciplineModule">
-    <ion-content>
-    Employee   
-    </ion-content>
 
-    <ion-content class="background">
+        <ion-content class="has-header">
         <ion-refresher
         pulling-text="Pull to refresh..."
+        refreshing-icon=""
         on-refresh="doRefresh()">
         </ion-refresher>
-        
         <div class="ft-container">
         
             <table class="footable" data-page-size="5">
@@ -41,9 +38,9 @@
                     <td>{{::discipline.date}}</td>
                     <td>{{::discipline.headline}}</td>
                     <td>
-                        <a><i class="icon ion-clipboard" data-pack="default" style=""></i></a>
-                        <a><i class="icon ion-edit"></i></a>
-                        <a><i class="icon ion-trash-a"></i></a>
+                        <!-- <a><i class="icon ion-clipboard" data-pack="default" style=""></i></a> -->
+                        <a ng-click="goToEditPage({{::discipline.record_id}})"><i class="icon ion-edit"></i></a>
+                        <a ng-click="deleteData({{::discipline.record_id}})"><i class="icon ion-trash-a"></i></a>
 
 
                     </td>
@@ -70,34 +67,46 @@
                           <div class="item item-input-inset" style="border:none">                        
                               
 
-                                 <select class="form-control" ng-model="pos.position_id" id="pos_position_id">
+                                 <select class="form-control" ng-model="formData.employee_id" id="employee_id">
                                   <option value="">-Select position-</option>
                                   <option value="{{::p.employee_id}}" ng-repeat="p in employees" >{{::p.name}}</option>
                                  
                                 </select> 
-                                <input type="hidden" ng-model="pos.department_id" value="" id="pos_department_id">
+                                
                                                                                                        
                             </div> 
                             <div class="item item-input-inset" style="border:none">                        
                                <label class="item-input-wrapper">
-                                  <input type="text" placeholder="Start Date" ng-model="pos.start"> 
+                                  <input type="text" placeholder="Date" ng-model="formData.date"> 
                                 </label>                                                                           
                             </div>
                                                        
                             <div class="item item-input-inset" style="border:none">                        
                                <label class="item-input-wrapper">
-                                  <input type="text" placeholder="Responsibilities" ng-model="pos.add_responsibilities"> 
+                                  <input type="text" placeholder="Headline" ng-model="formData.headline"> 
                                 </label>                                                                           
                             </div>
 
                             <div class="item item-input-inset" style="border:none">                        
                                <label class="item-input-wrapper">
-                                  <input type="text" placeholder="Move reason" ng-model="pos.move_reason"> 
+                                  <input type="text" placeholder="Description" ng-model="formData.description"> 
+                                </label>                                                                           
+                            </div>
+
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Comment" ng-model="formData.comment"> 
+                                </label>                                                                           
+                            </div>
+
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Tack Action" ng-model="formData.taken_actions"> 
                                 </label>                                                                           
                             </div>
                        
-                            <button class="button button-full button-assertive" ng-click="add_discipline(pos)">Add</button>
-                            <!--<button class="button button-full button-assertive" ng-click="editTaskData()" ng-show="s_button" ng-init="false">Save</button>-->
+                            <button class="button button-full button-assertive" ng-click="addData()" ng-init="true" ng-show="s_button">Add</button>
+                           <button class="button button-full button-assertive" ng-click="editData(record_id)" ng-show="e_button" ng-init="false">Save</button>
                           </div>
                         </ion-content>
                       </ion-modal-view>
@@ -109,7 +118,7 @@
             <i class="icon ion-home" ng-click="backHome()"></i>
         </a>
         <a class="tab-item">
-            <i class="icon ion-plus-circled" ng-click='modal_discipline.show()'></i>
+            <i class="icon ion-plus-circled" ng-click='goToAddData()'></i>
         </a>
         <a class="tab-item">
             <i class="icon ion-gear-a"></i>
@@ -117,3 +126,11 @@
     </div>
 </div>
 </ion-view>
+
+<script type="text/javascript">
+    $(function () {
+
+        $('table').footable();
+        
+    });
+</script>
