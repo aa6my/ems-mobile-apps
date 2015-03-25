@@ -9,6 +9,7 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
                           'ServiceModule',
                           'employeeModule',
                           'disciplineModule',
+                          'performanceModule',
                           'serverModule',
                           'loginModule',
                           'signoutModule',
@@ -103,6 +104,14 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
     views: {
       'menuContent': {
         templateUrl: "templates/performance.html"
+      }
+    }
+  })
+  .state('app.criteria', {
+    url: "/criteria",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/criteria.html"
       }
     }
   })
