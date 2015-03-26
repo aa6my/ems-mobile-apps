@@ -115,6 +115,14 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
       }
     }
   })
+  .state('app.appraisal', {
+    url: "/appraisal",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/appraisal.html"
+      }
+    }
+  })
   .state('app.discipline', {
     url: "/discipline",
     views: {
