@@ -24,12 +24,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="employee in employees()">
-                    <td>{{::employee.name}}</td>                    
+                <tr ng-repeat="p in performance_criterias()">
+                    <td>{{::p.criterion_name}}</td>                    
                     <td>
-                        <a><i class="icon ion-clipboard" data-pack="default" style=""></i></a>
-                        <a><i class="icon ion-edit"></i></a>
-                        <a><i class="icon ion-trash-a"></i></a>
+                        <!-- <a><i class="icon ion-clipboard" data-pack="default" style=""></i></a> -->
+                        <a ng-click="goToEditPage({{::p.criterion_id}})"><i class="icon ion-edit"></i></a>
+                        <a ng-click="deleteData({{::p.criterion_id}})"><i class="icon ion-trash-a"></i></a>
 
 
                     </td>
@@ -45,7 +45,29 @@
                 </tfoot>
             </table>
         </div>
-        
+        <script id="modal_criteria.html" type="text/ng-template">
+                      <ion-modal-view >
+                        <ion-header-bar class="bar bar-header head">
+                          <h1 class="title">{{myModal.title}}</h1>
+                          <button class="button button-clear button-primary" ng-click="modal_criteria.hide()">Cancel</button>
+                        </ion-header-bar>
+                        <ion-content class="padding">
+                          <div class="list">
+                           
+                            <div class="item item-input-inset" style="border:none">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Criteria Name" ng-model="formData.criterion_name"> 
+                                </label>                                                                           
+                            </div>
+                                                       
+                            
+                       
+                            <button class="button button-full button-assertive" ng-click="addData()" ng-init="true" ng-show="s_button">Add</button>
+                           <button class="button button-full button-assertive" ng-click="editData(criterion_id)" ng-show="e_button" ng-init="false">Save</button>
+                          </div>
+                        </ion-content>
+                      </ion-modal-view>
+                  </script>
 </ion-content> 
 
 <div class="tabs tabs-icon-only">
@@ -61,3 +83,10 @@
     </div>
 </div>
 </ion-view>
+<script type="text/javascript">
+    //$(function () {
+
+        //$('table').footable();
+        
+    //});
+</script>
