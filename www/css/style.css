@@ -66,3 +66,10 @@
     .setting-button {
         width: 167px;
     }
+
+.stars { display:inline-block; width:49px; height:9px; text-indent: -9999em; }
+.five-stars { background: url(images/sprite.png) no-repeat 0 0; }
+.four-stars { background: url(images/sprite.png) no-repeat 0 -15px; }
+.three-stars { background: url(images/sprite.png) no-repeat 0 -30px; }
+.two-stars { background: url(images/sprite.png) no-repeat 0 -45px; }
+.one-stars { background: url(images/sprite.png) no-repeat 0 -60px;  }
