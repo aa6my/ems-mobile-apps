@@ -1,5 +1,5 @@
 var apps = angular.module('performanceModule', ['ionic']);
-    apps.controller('Performance',function($scope,$http, $state,$ionicPopup,$ionicModal, Settings, init, Auth, UniversalFunction, CrudOperation) {
+    apps.controller('Performance',function($scope,$http, $state,$ionicPopup,$ionicModal,$stateParams, Settings, init, Auth, UniversalFunction, CrudOperation) {
        
 
           /*=============== employee(initial start of page will call this part) ============================= */
@@ -59,6 +59,10 @@ var apps = angular.module('performanceModule', ['ionic']);
         $scope.goToAppraisal = function(){
           $state.go('app.appraisal',{},{reload:true});
         } 
+
+        $scope.goToLogPage = function(appraisal_id){
+          $state.go('app.appraisal_log',{appraisal_id : appraisal_id},{reload:true});
+        }
 
         $scope.goToAddDataPage = function(){
                 $scope.s_button = true;
@@ -169,10 +173,11 @@ var apps = angular.module('performanceModule', ['ionic']);
         });
        
        $scope.goToAddDataPageAppraisal = function(){
-          $scope.s_button = true;
-          $scope.e_button = false;
-          $scope.formData = "";
-          $scope.appraisal_id = "";                
+          $scope.s_button          = true;
+          $scope.e_button          = false;
+          $scope.is_completed_show = false;
+          $scope.formData          = "";
+          $scope.appraisal_id      = "";                
           $scope.modal_appraisal.show();
        }
 
@@ -193,11 +198,11 @@ var apps = angular.module('performanceModule', ['ionic']);
        $scope.goToEditPageAppraisal = function(appraisal_id){
           CrudOperation.get('/dataAll/type/performance_appraisal/key/appraisal_id/val/'+appraisal_id+'/format/json').success(function(data){ 
                 
-                $scope.formData = data.performance_appraisal[0];
-                //console.log(data.performance_criteria[0]);
-                $scope.appraisal_id = data.performance_appraisal[0].appraisal_id;
-                $scope.s_button = false;
-                $scope.e_button = true;
+                $scope.formData          = data.performance_appraisal[0];
+                $scope.appraisal_id      = data.performance_appraisal[0].appraisal_id;
+                $scope.s_button          = false;
+                $scope.e_button          = true;
+                $scope.is_completed_show = true;
                 $scope.modal_appraisal.show();
                 
           });        
@@ -209,7 +214,9 @@ var apps = angular.module('performanceModule', ['ionic']);
                               employee_id   : $scope.formData.employee_id,
                               start_date    : $scope.formData.start_date,
                               end_date      : $scope.formData.end_date,
-                              expectations  : $scope.formData.expectations
+                              expectations  : $scope.formData.expectations,
+                              is_completed  : $scope.formData.is_completed,
+                              results       : $scope.formData.results
                           };
           var data       = {                             // data sent to Api
                               type : "performance_appraisal",
@@ -221,8 +228,28 @@ var apps = angular.module('performanceModule', ['ionic']);
           var stateToRedirect = 'app.appraisal';           // State that will redirect after update process success
           CrudOperation.update(params, data, stateToRedirect, true);          
         }
+
+        $scope.deleteDataAppraisal = function(appraisal_id){
+           var params = '/dataAll/type/performance_appraisal/key/appraisal_id/val/'+appraisal_id;
+               CrudOperation.delete(params);
+        }
         
-        
+        /*====================== end appraisal ======================================*/
+
+
+        /*========================= appraisal log ==================================*/
+
+        // $stateParams.appraisal_id came from $scope.goToLogPage function
+        // Must include paramter name in app.js for paramater declaration
+        if($stateParams.appraisal_id !== undefined && $stateParams.appraisal_id !== null){
+            var appraisal_id = $stateParams.appraisal_id;
+                $scope.appraisal_id   = appraisal_id;
+            var params = '/dataAll/type/performance_log/key/appraisal_id/val/'+appraisal_id+'/joinid/log_id/jointo/performance_log_criteria/format/json';
+                    CrudOperation.get(params).success(function(data){
+                      $scope.performance_logs = data.performance_log;
+                      //console.log(data.performance_log);
+                    });                     
+        }
         
         
 

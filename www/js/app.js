@@ -123,6 +123,14 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
       }
     }
   })
+  .state('app.appraisal_log', {
+    url: "/appraisal_log/:appraisal_id",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/appraisal_log.html"
+      }
+    }
+  })
   .state('app.discipline', {
     url: "/discipline",
     views: {

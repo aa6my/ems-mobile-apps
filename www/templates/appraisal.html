@@ -52,6 +52,7 @@
                         <span ng-show="{{::p.is_completed==0}}">
                         	<a ng-click="goToEditPageAppraisal({{::p.appraisal_id}})"><i class="icon ion-edit"></i></a>
                             <a ng-click="deleteDataAppraisal({{::p.appraisal_id}})"><i class="icon ion-trash-a"></i></a>
+                            <a ng-click="goToLogPage({{::p.appraisal_id}})"><i class="icon ion-filing"></i></a>
                         </span>
                         <span ng-show="{{::p.is_completed==1}}">                        	
                             <a ng-click="deleteDataAppraisal({{::p.appraisal_id}})"><i class="icon ion-trash-a"></i></a>
@@ -108,6 +109,20 @@
                                   <input type="text" placeholder="Expectation" ng-model="formData.expectations"> 
                                 </label>                                                                           
                             </div>
+
+                            <div class="item item-input-inset" style="border:none" ng-show="is_completed_show">
+                            	<span class="label label-info">Is Completed</span> &nbsp;&nbsp;
+		                        <div class="btn-group">
+		                            <label class="btn btn-primary is_com" ng-model="formData.is_completed" btn-radio="0">No</label>
+		                            <label class="btn btn-primary is_com" ng-model="formData.is_completed" btn-radio="1">Yes</label>
+		                        </div>		                                           
+		                    </div>
+
+		                    <div class="item item-input-inset" style="border:none;display:none" id="results">                        
+                               <label class="item-input-wrapper">
+                                  <input type="text" placeholder="Results" ng-model="formData.results"> 
+                                </label>                                                                           
+                            </div>
                        
                             <button class="button button-full button-assertive" ng-click="addDataAppraisal()" ng-init="true" ng-show="s_button">Add</button>
                            <button class="button button-full button-assertive" ng-click="editDataAppraisal(appraisal_id)" ng-show="e_button" ng-init="false">Save</button>
@@ -131,9 +146,17 @@
 </div>
 </ion-view>
 <script type="text/javascript">
-    //$(function () {
+    $(function () {
 
-        //$('table').footable();
+        $(document).on('click','.is_com', function(){
+        	var value = $(this).attr('btn-radio');
+        	    if(parseInt(value) === 1){
+        	    	$('#results').show();
+        	    }
+        	    else{
+        	    	$('#results').hide();
+        	    }
+        });
         
-    //});
+    });
 </script>
