@@ -1,0 +1,38 @@
+<ion-view title="Positions">
+
+    <!--navigation button on top-->
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left"class="button button-icon icon ion-android-arrow-back"></button>
+    </ion-nav-buttons>
+    <!-- content-->
+    <div ng-controller="Position">
+
+        <ion-content>
+            <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="doRefresh()">
+            </ion-refresher>
+
+                <button class="button button-positive" ng-click="addData()" ng-show="btnAdd">Add</button> 
+                <button class="button button-positive" ng-click="editData()" ng-show="btnEdit">Save</button> 
+                <div class="item item-input-inset" style="border:none">
+
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Position name</span>
+                        <input type="text" placeholder="Enter Position Name" ng-model="formData.position_name"> 
+                    </label>                    
+                </div>
+
+                <div class="item item-input-inset" style="border:none">
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Responsibilities</span>
+                        <input type="text" placeholder="Enter Position Responsibilities" ng-model="formData.responsibilities"> 
+                    </label>                    
+                </div>
+
+                
+                
+        </ion-content>
+
+    </div>
+</ion-view>

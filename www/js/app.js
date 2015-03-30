@@ -17,7 +17,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
                           'skillcatModule',
                           'settingModule',
                           'departmentModule',
-                          'resignModule'
+                          'resignModule',
+                          'positionModule'
                           ])
 
 .run(function($ionicPlatform) {
@@ -194,6 +195,21 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
     views: {
       'menuContent': {
         templateUrl: "templates/resign.html"
+      }
+    }
+  })
+  .state('app.position', {
+    url: "/position",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/position.html"
+      }
+    }
+  }).state('app.positionAdd_Edit', {
+    url: "/positionAdd_Edit",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/positionAdd_Edit.html"
       }
     }
   })

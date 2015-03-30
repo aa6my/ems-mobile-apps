@@ -10,6 +10,9 @@ var apps = angular.module('settingModule', ['ionic']);
         $scope.goResign = function(){
                $state.go('app.resign');
         }
+        $scope.goPosition = function(){
+               $state.go('app.position');
+        }
     
         /*------------initial value for form data of update function ----*/
         $scope.formData = UniversalFunction.returnDisplayFormData();
