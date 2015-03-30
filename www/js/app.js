@@ -15,7 +15,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
                           'signoutModule',
                           'skillModule',
                           'skillcatModule',
-                          'settingModule'
+                          'settingModule',
+                          'departmentModule'
                           ])
 
 .run(function($ionicPlatform) {
@@ -179,6 +180,15 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
       }
     }
   })
+  .state('app.department', {
+    url: "/department",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/department.html"
+      }
+    }
+  })
+
   .state('app.login', {
     url: "/login",
     views: {
