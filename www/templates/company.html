@@ -1,8 +1,72 @@
-<ion-view view-title="Company">
-	<ion-nav-buttons side="left">
+<ion-view title="Company">
+
+    <!--navigation button on top-->
+    <ion-nav-buttons side="left">
         <button menu-toggle="left"class="button button-icon icon ion-android-arrow-back"></button>
     </ion-nav-buttons>
-  	<ion-content>
-    	<h1>Company</h1>
-  	</ion-content>
+    <!-- content-->
+    <div ng-controller="Skill">
+
+        <ion-content>
+            <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="doRefresh()">
+            </ion-refresher>
+
+                
+                
+                <div class="item item-input-inset" style="border:none">
+
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Company name</span>
+                        <input type="text" placeholder="Enter company name" ng-model="formData.company_name"> 
+                    </label>                    
+                </div>
+
+                <div class="item item-input-inset" style="border:none">
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Company Email</span>
+                        <input type="text" placeholder="example@example.com"> 
+                    </label>                    
+                </div>
+
+                <div class="item item-input-inset" style="border:none">
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Phone</span>
+                        <input type="text" placeholder="Enter phone number"> 
+                    </label>                    
+                </div>
+
+                <div class="item item-input-inset" style="border:none">
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Address</span>
+                        <input type="text" placeholder="Enter company address"> 
+                    </label>                    
+                </div>
+                <div class="item item-input-inset" style="border:none">
+                    <label class="item-input-wrapper">
+                    <span class="input-label">City</span>
+                        <input type="text" placeholder="Enter city"> 
+                    </label>                    
+                </div>
+                <div class="item item-input-inset" style="border:none">
+                    <label class="item-input-wrapper">
+                    <span class="input-label">State</span>
+                        <input type="text" placeholder="Enter state"> 
+                    </label>                    
+                </div>
+                <div class="item item-input-inset" style="border:none">
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Zip</span>
+                        <input type="text" placeholder="Enter zipcode"> 
+                    </label>                    
+                </div>
+
+                
+            <button class="button button-positive" ng-click="editCompany()">Save</button> 
+                
+                
+        </ion-content>
+
+    </div>
 </ion-view>
