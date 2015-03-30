@@ -4,9 +4,11 @@ var apps = angular.module('settingModule', ['ionic']);
         $scope.goComp = function(){
           $state.go('app.company');
         }
-         $scope.goDept = function(){
+        $scope.goDept = function(){
                $state.go('app.department');
-                
+        }
+        $scope.goResign = function(){
+               $state.go('app.resign');
         }
     
         /*------------initial value for form data of update function ----*/
