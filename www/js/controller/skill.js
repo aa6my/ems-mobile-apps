@@ -52,7 +52,7 @@ var apps = angular.module('skillModule', ['ionic']);
                   
         }
 
-        $scope.goToEditDataPage = function(skills){
+        $scope.goToEditDataPage = function(sks){
 
                     $state.go('app.skillAdd_Edit',{},{reload:false});
                     /*-------------If click edit button show only save button with edit function--------------*/
@@ -61,7 +61,7 @@ var apps = angular.module('skillModule', ['ionic']);
                     $scope.btnEdit  = n.edit;
                     /*---------------------------*/
                     /*-- display value form list into update form */
-                    var b           = UniversalFunction.displayFormData(skills);
+                    var b           = UniversalFunction.displayFormData(sks);
                     $scope.formData = b;
                     
               }
@@ -88,11 +88,12 @@ var apps = angular.module('skillModule', ['ionic']);
         /*================================ Add function ================================*/
         $scope.addData  = function(){
 
-          $scope.formData = {};
+          var sk = [];
+              sk.push(this.formData);
           var params      = '/dataAll';                   // request Api link
           var data        = {                             // data sent to Api
                               type : "skills", 
-                              formData : this.formData
+                              formData : sk
                         };
           var stateToRedirect = 'app.skills';
           CrudOperation.add(params, data, stateToRedirect);

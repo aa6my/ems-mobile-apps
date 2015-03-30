@@ -68,11 +68,12 @@ var apps = angular.module('skillcatModule', ['ionic']);
         /*================================ Add,edit,delete function ================================*/
         $scope.addData  = function(fd){
 
-          $scope.formData = {};
+          var addskcat = [];
+              addskcat.push(fd);
           var params      = '/dataAll';                   // request Api link
           var data        = {                             // data sent to Api
                               type : "skills_categories", 
-                              formData : fd
+                              formData : addskcat
                         };
           //var stateToRedirect = 'app.skillcat';
           CrudOperation.add(params, data);
@@ -97,7 +98,6 @@ var apps = angular.module('skillcatModule', ['ionic']);
                     //var stateToRedirect = 'app.skillcat';           // State that will redirect after update process success
                     CrudOperation.update(params, data);
                     $scope.category_Edit.hide();  
-                    console.log(data);
                 } 
 
          $scope.deleteData = function(skc) {
