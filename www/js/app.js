@@ -16,7 +16,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
                           'skillModule',
                           'skillcatModule',
                           'settingModule',
-                          'departmentModule'
+                          'departmentModule',
+                          'resignModule'
                           ])
 
 .run(function($ionicPlatform) {
@@ -185,6 +186,14 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
     views: {
       'menuContent': {
         templateUrl: "templates/department.html"
+      }
+    }
+  })
+  .state('app.resign', {
+    url: "/resign",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/resign.html"
       }
     }
   })
