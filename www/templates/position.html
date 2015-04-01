@@ -30,13 +30,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="posisi in posts()">
+                <tr ng-repeat="posisi in posts()" ng-if="posisi.is_active == 1 ">
+            
                     <td>{{::posisi.position_name}}</td>
                     <td>{{::posisi.responsibilities}}</td>
                     <td>
                         <a class="ft-icon-color"><i class="icon ion-edit" ng-click='goToEditDataPage(posisi)'></i></a>
                         <a class="ft-icon-color"><i class="icon ion-trash-b" ng-click="deleteData(posisi)"></i></a>
                     </td>
+    
                 </tr>
                 </tbody>
                 <tfoot>

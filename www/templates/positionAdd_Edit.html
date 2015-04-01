@@ -13,8 +13,7 @@
                 on-refresh="doRefresh()">
             </ion-refresher>
 
-                <button class="button button-positive" ng-click="addData()" ng-show="btnAdd">Add</button> 
-                <button class="button button-positive" ng-click="editData()" ng-show="btnEdit">Save</button> 
+                
                 <div class="item item-input-inset" style="border:none">
 
                     <label class="item-input-wrapper">
@@ -29,6 +28,21 @@
                         <input type="text" placeholder="Enter Position Responsibilities" ng-model="formData.responsibilities"> 
                     </label>                    
                 </div>
+
+                 <div class="item item-input-inset" style="border:none">
+                    <label class="item-input-wrapper">
+                    <span class="input-label">Departments</span>
+                        <select class="input--select" ng-model="formData.department_id" ng-options="departments.department_id as departments.department_name for departments in dpt"></select>
+                    </label>
+                    <input type="checkbox" placeholder="Enter Position Responsibilities" ng-model="formData.is_head">
+                    
+                    <p>Head of Department</p>
+                </div>
+                
+                <button class="button button-positive" ng-click="addData()" ng-if="btnAdd">Add</button> 
+                <button class="button button-positive" ng-click="editData()" ng-if="btnEdit">Save</button> 
+                
+
 
                 
                 

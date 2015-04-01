@@ -66,6 +66,9 @@ var apps = angular.module('positionModule', ['ionic']);
                     
               }
 
+         var params = '/dataAll/type/departments/format/json';
+                  CrudOperation.get(params).success(function(data){  $scope.dpt = data.departments;  });
+
         
         
         /*================================ Add function ================================*/
@@ -73,6 +76,10 @@ var apps = angular.module('positionModule', ['ionic']);
 
           var pt = [];
               pt.push(this.formData);
+              console.log(pt);
+          if(pt.is_head = true){
+            console.log("a");
+          }
           var params      = '/dataAll';                   // request Api link
           var data        = {                             // data sent to Api
                               type : "positions", 
