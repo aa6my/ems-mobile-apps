@@ -33,7 +33,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="skill in skills()">
+                <tr ng-repeat="skill in skills()" ng-if="skill.is_active == 1 ">
                     <td>{{::skill.skill_name}}</td>
                     <td>{{::skill.skill_requirements}}</td>
                      <td>{{::skill.category_name}}</td>
