@@ -40,7 +40,6 @@ var apps = angular.module('positionModule', ['ionic']);
                
 
         $scope.goToAddDataPage = function(){
-
           $state.go('app.positionAdd_Edit',{},{reload:false});
           /*------------- If click add new button show only submit button with save function--------------*/
           var m = UniversalFunction.buttonOnly(true,false);
@@ -48,8 +47,12 @@ var apps = angular.module('positionModule', ['ionic']);
           $scope.btnEdit = m.edit;
           /*---------------------------*/
           /*---- set form value to blank */
-          UniversalFunction.displayFormData('');                   
-                  
+          //UniversalFunction.displayFormData("");                   
+            $scope.formData.position_name  = ""; 
+            $scope.formData.responsibilities  = "";
+            $scope.formData.department_id  = ""; 
+            $scope.formData.position_name  = "";  
+
         }
 
         $scope.goToEditDataPage = function(pos){
@@ -63,39 +66,81 @@ var apps = angular.module('positionModule', ['ionic']);
                     /*-- display value form list into update form */
                     var b           = UniversalFunction.displayFormData(pos);
                     $scope.formData = b;
-                    
+                    console.log($scope.formData);
               }
 
          var params = '/dataAll/type/departments/format/json';
                   CrudOperation.get(params).success(function(data){  $scope.dpt = data.departments;  });
 
-        
-        
+          if ($state.is('app.positionAdd_Edit')) {
+            var params = '/dataAll/type/positions/format/json';
+                  CrudOperation.get(params).success(function(data){  $scope.pp = data.positions;  });
+            
+          };
+           
+           
         /*================================ Add function ================================*/
-        $scope.addData  = function(){
-
-          var pt = [];
-              pt.push(this.formData);
-              console.log(pt);
-          if(pt.is_head = true){
-            console.log("a");
+        $scope.addData  = function(c){
+          var z = 0;     
+          if (c == "1") {
+            for (var i = 0; i < $scope.pp.length; i++) {
+                if(this.formData.department_id == $scope.pp[i].department_id && c == $scope.pp[i].is_head){
+                  z++;
+                  console.log(z);
+                }
+            }
+            if (z == 0){
+              var a = {
+                  position_name         : this.formData.position_name,
+                  responsibilities    : this.formData.responsibilities,
+                  department_id :  this.formData.department_id,
+                  is_head : c
+              };
+              var pt = [];
+                  pt.push(a);
+                  console.log(pt);
+              var params      = '/dataAll';                   // request Api link
+              var data        = {                             // data sent to Api
+                                  type : "positions", 
+                                  formData : pt
+                            };
+              var stateToRedirect = 'app.position';
+              CrudOperation.add(params, data, stateToRedirect);
+              console.log("add");
+            } else if(z !== 0){
+               alert("Sorry, Head of Department is busy.");
+              // $state.go('app.position',{},{reload:true});
+            }
           }
-          var params      = '/dataAll';                   // request Api link
-          var data        = {                             // data sent to Api
-                              type : "positions", 
-                              formData : pt
-                        };
-          var stateToRedirect = 'app.position';
-          CrudOperation.add(params, data, stateToRedirect);
-          
-        } 
 
+          if (c == "0"){
+            var a = {
+                  position_name         : this.formData.position_name,
+                  responsibilities    : this.formData.responsibilities,
+                  department_id :  this.formData.department_id,
+                  is_head : c
+              };
+              var pt = [];
+                  pt.push(a);
+                  console.log(pt);
+              var params      = '/dataAll';                   // request Api link
+              var data        = {                             // data sent to Api
+                                  type : "positions", 
+                                  formData : pt
+                            };
+              var stateToRedirect = 'app.position';
+              CrudOperation.add(params, data, stateToRedirect);
+              console.log("add");
+          }
+        }
+       
         $scope.editData = function(){
 
                     var params     = '/dataAll';                  // request Api link
                     var dataUpdate = {                             // field column need to update
                                         position_name         : $scope.formData.position_name,
-                                        responsibilities    : $scope.formData.responsibilities
+                                        responsibilities    : $scope.formData.responsibilities,
+                                        department_id :  $scope.formData.department_id
                               
                         };
                     var data       = {                             // data sent to Api
@@ -117,6 +162,7 @@ var apps = angular.module('positionModule', ['ionic']);
         $scope.backHome = function(){
             UniversalFunction.home_button();
           }
+
 
 })
 

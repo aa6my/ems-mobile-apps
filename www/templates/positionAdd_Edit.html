@@ -34,18 +34,17 @@
                     <span class="input-label">Departments</span>
                         <select class="input--select" ng-model="formData.department_id" ng-options="departments.department_id as departments.department_name for departments in dpt"></select>
                     </label>
-                    <input type="checkbox" placeholder="Enter Position Responsibilities" ng-model="formData.is_head">
                     
-                    <p>Head of Department</p>
                 </div>
-                
-                <button class="button button-positive" ng-click="addData()" ng-if="btnAdd">Add</button> 
+                <div class="item">
+                <input type="radio" ng-model="checked" value ="0">No
+                <input type="radio" ng-model="checked" value ="1">yes
+                Head of Department
+                 
+                 <button class="button button-positive" ng-click="pos_skill.show()">Required Skill</button> 
+                <button class="button button-positive" ng-click="addData(checked)" ng-if="btnAdd">Add</button> 
                 <button class="button button-positive" ng-click="editData()" ng-if="btnEdit">Save</button> 
-                
-
-
-                
-                
+            
         </ion-content>
 
     </div>
