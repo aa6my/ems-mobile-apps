@@ -1,5 +1,5 @@
-var apps = angular.module('disciplineModule', ['ionic']);
-    apps.controller('Discipline',function($scope,$http, $state,$ionicPopup,$ionicModal, Settings, init, Auth, UniversalFunction, CrudOperation) {
+var apps = angular.module('trackingModule', ['ionic']);
+    apps.controller('Tracking',function($scope,$http, $state,$ionicPopup,$ionicModal, Settings, init, Auth, UniversalFunction, CrudOperation) {
        
           /*=============== employee(initial start of page will call this part) ============================= */
         
@@ -13,13 +13,13 @@ var apps = angular.module('disciplineModule', ['ionic']);
         $scope.formData = UniversalFunction.returnDisplayFormData();
         /*---------------------------------------------------------------*/
         
-        var url = Settings.url + '/dataAll/type/discipline/joinid/employee_id/jointo/employees/format/json';
+        var url = Settings.url + '/dataAll/type/timeoff/joinid/employee_id/jointo/employees/format/json';
               
        $http
           .get(url, Auth.doAuth(init.username, init.password))
           .success(function(data){
                 
-              $scope.disciplines = UniversalFunction.redraw(data.discipline);
+              $scope.trackings = UniversalFunction.redraw(data.timeoff);
                     
         }, function(err) {
               console.error('ERR', err);
@@ -31,7 +31,7 @@ var apps = angular.module('disciplineModule', ['ionic']);
             .get(url, Auth.doAuth(init.username, init.password))
             .success(function(data){
                   
-              $scope.disciplines = UniversalFunction.redraw(data.discipline);
+              $scope.trackings = UniversalFunction.redraw(data.timeoff);
 
         }).finally(function(){
             $scope.$broadcast('scroll.refreshComplete');
@@ -39,55 +39,56 @@ var apps = angular.module('disciplineModule', ['ionic']);
         };
                
 
-        $scope.goToEditPage = function(discipline_id){
+        $scope.goToEditPage = function(tracking_id){
 
-           CrudOperation.get('/dataAll/type/discipline/key/record_id/val/'+discipline_id+'/format/json').success(function(data){ 
+           CrudOperation.get('/dataAll/type/timeoff/key/record_id/val/'+tracking_id+'/format/json').success(function(data){ 
                 
-                $scope.formData = data.discipline[0];
-                $scope.record_id = data.discipline[0].record_id;
+                $scope.formData = data.timeoff[0];
+                $scope.record_id = data.timeoff[0].record_id;
                 $scope.s_button = false;
                 $scope.e_button = true;
-                $scope.modal_discipline.show();
+                $scope.modal_tracking.show();
                 
           });                
           
         }
 
         /*================================ Edit function ================================*/
-                $scope.editData = function(discipline_id){
-                 // console.log(discipline_id);
+                $scope.editData = function(tracking_id){
+
                     var params     = '/dataAll';                  // request Api link
                     var dataUpdate = {                             // field column need to update
-                                        date : $scope.formData.date,
                                         employee_id : $scope.formData.employee_id,
-                                        headline : $scope.formData.headline,
-                                        description : $scope.formData.description,
-                                        taken_actions : $scope.formData.taken_actions,
+                                        start_time : $scope.formData.start_time,
+                                        end_time : $scope.formData.end_time,
+                                        type : $scope.formData.type,
+                                        status : $scope.formData.status,
+                                        employee_comment : $scope.formData.employee_comment,
                                         comment : $scope.formData.comment
-                        };
+                         };
                     var data       = {                             // data sent to Api
-                                      type : "discipline",
+                                      type : "timeoff",
                                       primaryKey : 'record_id', 
-                                      primaryKeyVal : discipline_id,
+                                      primaryKeyVal : tracking_id,
                                       formData : dataUpdate
                         };
-                    $scope.modal_discipline.hide();
-                    var stateToRedirect = 'app.discipline';           // State that will redirect after update process success
+                    $scope.modal_tracking.hide();
+                    var stateToRedirect = 'app.tracking';           // State that will redirect after update process success
                     CrudOperation.update(params, data, stateToRedirect, true);  
                 } 
         /*================================ End Edit function ================================*/
-
+  
         $scope.goToAddData = function(){
                 $scope.s_button = true;
                 $scope.e_button = false;
                 $scope.formData = "";
                 $scope.record_id = "";                
-                $scope.modal_discipline.show();
+                $scope.modal_tracking.show();
         }
 
         $scope.deleteData = function(record_id){
 
-                var params = '/dataAll/type/discipline/key/record_id/val/'+record_id;
+                var params = '/dataAll/type/timeoff/key/record_id/val/'+record_id;
                 CrudOperation.delete(params);
              
         }
@@ -106,12 +107,13 @@ var apps = angular.module('disciplineModule', ['ionic']);
 
         
         /*---------------------- modal box -------------------------------*/
-        $ionicModal.fromTemplateUrl('modal_discipline.html', {
+        
+        $ionicModal.fromTemplateUrl('modal_tracking.html', {
             scope: $scope,
             animation: 'slide-in-up',
             focusFirstInput: true
         }).then(function(modal) {
-            $scope.modal_discipline = modal
+            $scope.modal_tracking = modal
         });
 
         
@@ -151,11 +153,11 @@ var apps = angular.module('disciplineModule', ['ionic']);
        
           var params      = '/dataAll';                  
           var data        = {                            
-                              type : "discipline", 
+                              type : "timeoff", 
                               formData : h
                         };
-          var stateToRedirect = 'app.discipline';
-          $scope.modal_discipline.hide();
+          var stateToRedirect = 'app.tracking';
+          $scope.modal_tracking.hide();
           CrudOperation.add(params, data);
           //$state.go('app.employees',{},{reload:true});  
         } 

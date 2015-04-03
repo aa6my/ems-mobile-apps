@@ -18,7 +18,9 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
                           'settingModule',
                           'departmentModule',
                           'resignModule',
-                          'positionModule'
+                          'positionModule',
+                          'trackingModule'
+
                           ])
 
 .run(function($ionicPlatform) {
