@@ -38,13 +38,35 @@
                 </div>
                 <div class="item">
                 <input type="radio" ng-model="checked" value ="0">No
-                <input type="radio" ng-model="checked" value ="1">yes
+                <input type="radio" ng-model="checked" value ="1">Yes
                 Head of Department
                  
-                 <button class="button button-positive" ng-click="pos_skill.show()">Required Skill</button> 
-                <button class="button button-positive" ng-click="addData(checked)" ng-if="btnAdd">Add</button> 
+<!--                 <button class="button button-positive" ng-click="pos_skill.show()">Required Skill</button> 
+ -->                <button class="button button-positive" ng-click="addData(checked)" ng-if="btnAdd">Add</button> 
                 <button class="button button-positive" ng-click="editData()" ng-if="btnEdit">Save</button> 
-            
+
+                <script id="pos_skill.html" type="text/ng-template">
+                      <ion-modal-view >
+                        <ion-header-bar class="bar bar-header head">
+                          <h1 class="title">Required Skill</h1>
+                          <button class="button button-clear button-primary" ng-click="pos_skill.hide()">Cancel</button>
+                        </ion-header-bar>
+                        <ion-content class="padding">
+                            <div class="list">
+                          
+                                
+                                   <span class="input-label">Choose required skill</span>
+                                   
+                    
+                                        <ion-checkbox type = "checkbox" ng-repeat="sekil in skk" ng-if="sekil.is_active == 1" ng-model="checkmodel[sekil.skill_name]" ng-true-value="{{sekil.skill_id}}" ng-false-value = "0">{{sekil.skill_name}}</ion-checkbox><br>
+
+                                <button class="button button-full button-assertive" ng-click="addrequired(checkmodel)">Add</button>
+                                
+                            </div>
+                        </ion-content>
+                    </ion-modal-view>
+                </script>
+
         </ion-content>
 
     </div>

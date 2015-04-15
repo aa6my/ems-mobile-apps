@@ -1,4 +1,4 @@
-var apps = angular.module('positionModule', ['ionic']);
+var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
     apps.controller('Position',function($scope,$http, $state,$ionicPopup,$ionicModal, Settings, init, Auth, UniversalFunction, CrudOperation) {
        
           /*=============== employee(initial start of page will call this part) ============================= */
@@ -77,9 +77,34 @@ var apps = angular.module('positionModule', ['ionic']);
                   CrudOperation.get(params).success(function(data){  $scope.pp = data.positions;  });
             
           };
-           
-           
+
+         var params = '/dataAll/type/skills/format/json';
+                  CrudOperation.get(params).success(function(data){  $scope.skk = data.skills;  });
+
+           $ionicModal.fromTemplateUrl('pos_skill.html', {
+            scope: $scope,
+            animation: 'slide-in-up',
+            focusFirstInput: true
+        }).then(function(modal) {
+            $scope.pos_skill = modal
+        });
+         $scope.checkmodel= {};
         /*================================ Add function ================================*/
+        $scope.addrequired  = function(cm){
+         // console.log(cm); 
+          var cc = [];
+            angular.forEach(cm, function(value, key) {
+            this.push(value);
+          }, cc);
+          //console.log(cc); 
+          for (var i = 0; i < cc.length; i++) {
+              if(cc[i] !== 0){
+                console.log("jadi");
+              }
+          };        
+          
+        }; 
+
         $scope.addData  = function(c){
           var z = 0;     
           if (c == "1") {
@@ -104,9 +129,10 @@ var apps = angular.module('positionModule', ['ionic']);
                                   type : "positions", 
                                   formData : pt
                             };
-              var stateToRedirect = 'app.position';
-              CrudOperation.add(params, data, stateToRedirect);
+              //var stateToRedirect = 'app.position';
+              CrudOperation.add(params, data);
               console.log("add");
+              $scope.pos_skill.show()
             } else if(z !== 0){
                alert("Sorry, Head of Department is busy.");
               // $state.go('app.position',{},{reload:true});
@@ -128,9 +154,10 @@ var apps = angular.module('positionModule', ['ionic']);
                                   type : "positions", 
                                   formData : pt
                             };
-              var stateToRedirect = 'app.position';
-              CrudOperation.add(params, data, stateToRedirect);
+              //var stateToRedirect = 'app.position';
+              CrudOperation.add(params, data);
               console.log("add");
+              $scope.pos_skill.show()
           }
         }
        
