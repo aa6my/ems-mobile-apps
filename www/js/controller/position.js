@@ -84,26 +84,14 @@ var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
            $ionicModal.fromTemplateUrl('pos_skill.html', {
             scope: $scope,
             animation: 'slide-in-up',
-            focusFirstInput: true
+            focusFirstInput: true,
+            backdropClickToClose : false    
         }).then(function(modal) {
             $scope.pos_skill = modal
         });
          $scope.checkmodel= {};
         /*================================ Add function ================================*/
-        $scope.addrequired  = function(cm){
-         // console.log(cm); 
-          var cc = [];
-            angular.forEach(cm, function(value, key) {
-            this.push(value);
-          }, cc);
-          //console.log(cc); 
-          for (var i = 0; i < cc.length; i++) {
-              if(cc[i] !== 0){
-                console.log("jadi");
-              }
-          };        
-          
-        }; 
+       
 
         $scope.addData  = function(c){
           var z = 0;     
@@ -159,6 +147,55 @@ var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
               console.log("add");
               $scope.pos_skill.show()
           }
+        }
+
+        $scope.addrequired  = function(cm){
+            // console.log(cm); 
+
+            CrudOperation.get('/dataOrderBy/type/positions/order_id/position_id/order_val/desc').success(function(data){
+                var pid =  data.positions.position_id;
+                console.log(pid);
+            
+            var cc = [];
+            angular.forEach(cm, function(value, key) {
+                this.push(value);
+            }, cc);
+
+            console.log(cc); 
+            for (var i = 0; i < cc.length; i++) {
+
+                if(cc[i] !== 0){
+                    var a = "";
+                    a = cc[i].toString();
+                    console.log(a);
+
+                        var test = {
+                            position_id : pid,
+                            skill_id : a
+                        }
+                        console.log(test);
+
+                        var ps = [];
+                        ps.push(test);
+                        console.log(ps);
+                        var params      = '/dataAll';                   // request Api link
+                        var data        = {                             // data sent to Api
+                                  type : "positions_skills", 
+                                  formData : ps
+                        };
+                        var stateToRedirect = 'app.position';
+                        $scope.pos_skill.hide()
+                        CrudOperation.add(params, data, stateToRedirect);
+                }
+
+            };        
+          })
+        }; 
+
+        $scope.exitAdd = function(){
+          $scope.pos_skill.remove()
+           $state.go('app.position',{},{reload:true,inherit: false});
+
         }
        
         $scope.editData = function(){
