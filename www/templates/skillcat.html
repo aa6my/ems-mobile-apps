@@ -28,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="category in skcat()">
+                    <tr ng-repeat="category in skcat()" ng-if="category.is_active == 1">
                         <td>{{::category.category_name}}</td>
                         <td>
                             <a class="ft-icon-color"><i class="icon ion-edit" ng-click='editCategory(category)'></i></a>

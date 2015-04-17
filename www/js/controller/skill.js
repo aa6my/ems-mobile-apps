@@ -81,7 +81,7 @@ var apps = angular.module('skillModule', ['ionic']);
         }
 
 
-       var params = '/dataAll/type/skills_categories/format/json';
+       var params = '/dataAll/type/skills_categories/key/is_active/val/1/format/json';
                   CrudOperation.get(params).success(function(data){  $scope.skill_cat = data.skills_categories;  });
         
         

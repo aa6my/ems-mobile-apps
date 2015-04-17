@@ -28,7 +28,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="dept in setDept()">
+                <tr ng-repeat="dept in setDept()" ng-if="dept.is_active == 1">
                     <td>{{::dept.department_name}}</td>
                     <td>
                         <a class="ft-icon-color"><i class="icon ion-edit" ng-click='editDept(dept)'></i></a>

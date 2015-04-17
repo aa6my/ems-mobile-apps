@@ -69,7 +69,7 @@ var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
                     console.log($scope.formData);
               }
 
-         var params = '/dataAll/type/departments/format/json';
+         var params = '/dataAll/type/departments/key/is_active/val/1/format/json';
                   CrudOperation.get(params).success(function(data){  $scope.dpt = data.departments;  });
 
           if ($state.is('app.positionAdd_Edit')) {
