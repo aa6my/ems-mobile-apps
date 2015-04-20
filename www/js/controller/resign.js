@@ -13,7 +13,7 @@ var apps = angular.module('resignModule', ['ionic']);
         $scope.formData = UniversalFunction.returnDisplayFormData();
         /*---------------------------------------------------------------*/
         
-         var url = Settings.url + '/dataAll/type/resign_reasons/format/json';
+         var url = Settings.url + '/dataAll/type/resign_reasons/key/is_active/val/1/format/json';
               
         $http
           .get(url, Auth.doAuth(init.username, init.password))
