@@ -8,12 +8,7 @@
     <div ng-controller="Position">
 
         <ion-content>
-            <ion-refresher
-                pulling-text="Pull to refresh..."
-                on-refresh="doRefresh()">
-            </ion-refresher>
-
-                
+          
                 <div class="item item-input-inset" style="border:none">
 
                     <label class="item-input-wrapper">
@@ -43,7 +38,8 @@
                 </div>
 <!--                 <button class="button button-positive" ng-click="pos_skill.show()">Required Skill</button> 
  -->            <button class="button button-positive" ng-click="addData(checked)" ng-if="btnAdd">Add</button> 
-                <button class="button button-positive" ng-click="editData()" ng-if="btnEdit">Save</button> 
+                <button class="button button-positive" ng-click="editData(checked)" ng-if="btnEdit">Save</button> 
+                <button class="button button-positive" ng-click="exitEdit()">Cancel</button>
 
                 <script id="pos_skill.html" type="text/ng-template">
                       <ion-modal-view >
@@ -60,7 +56,8 @@
                     
                                         <ion-checkbox type = "checkbox" ng-repeat="sekil in skk" ng-if="sekil.is_active == 1" ng-model="checkmodel[sekil.skill_name]" ng-true-value="{{sekil.skill_id}}" ng-false-value = "0">{{sekil.skill_name}}</ion-checkbox><br>
 
-                                <button class="button button-assertive" ng-click="addrequired(checkmodel)">Add</button>
+                                <button class="button button-assertive" ng-click="addrequired(checkmodel)" ng-if="btnAdd">Add</button>
+                                <button class="button button-assertive" ng-click="editrequired(checkmodel)" ng-if="btnEdit">Add</button>
                                 <button class="button button-assertive" ng-click="exitAdd()">Finish</button>
 
                             </div>

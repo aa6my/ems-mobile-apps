@@ -75,10 +75,12 @@ var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
           if ($state.is('app.positionAdd_Edit')) {
             var params = '/dataAll/type/positions/format/json';
                   CrudOperation.get(params).success(function(data){  $scope.pp = data.positions;  });
-            
           };
 
-         var params = '/dataAll/type/skills/format/json';
+             var params = '/dataAll/type/positions_skills/format/json';
+                  CrudOperation.get(params).success(function(data){  $scope.poskill = data.positions_skills;  });
+
+            var params = '/dataAll/type/skills/format/json';
                   CrudOperation.get(params).success(function(data){  $scope.skk = data.skills;  });
 
            $ionicModal.fromTemplateUrl('pos_skill.html', {
@@ -118,9 +120,9 @@ var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
                                   formData : pt
                             };
               //var stateToRedirect = 'app.position';
-              CrudOperation.add(params, data);
+              CrudOperation.add_no_redirect(params, data);
               console.log("add");
-              $scope.pos_skill.show()
+              $scope.pos_skill.show();
             } else if(z !== 0){
                alert("Sorry, Head of Department is busy.");
               // $state.go('app.position',{},{reload:true});
@@ -136,16 +138,17 @@ var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
               };
               var pt = [];
                   pt.push(a);
-                  console.log(pt);
+                  //console.log(pt);
               var params      = '/dataAll';                   // request Api link
               var data        = {                             // data sent to Api
                                   type : "positions", 
                                   formData : pt
                             };
               //var stateToRedirect = 'app.position';
-              CrudOperation.add(params, data);
+              CrudOperation.add_no_redirect(params, data);
               console.log("add");
-              $scope.pos_skill.show()
+              $scope.pos_skill.show();
+              
           }
         }
 
@@ -167,39 +170,94 @@ var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
                 if(cc[i] !== 0){
                     var a = "";
                     a = cc[i].toString();
-                    console.log(a);
+                    //console.log(a);
 
                         var test = {
                             position_id : pid,
                             skill_id : a
                         }
-                        console.log(test);
+                        //console.log(test);
 
                         var ps = [];
                         ps.push(test);
-                        console.log(ps);
+                        //console.log(ps);
                         var params      = '/dataAll';                   // request Api link
                         var data        = {                             // data sent to Api
                                   type : "positions_skills", 
                                   formData : ps
                         };
+
                         var stateToRedirect = 'app.position';
-                        $scope.pos_skill.hide()
+                        
                         CrudOperation.add(params, data, stateToRedirect);
+                        $scope.pos_skill.hide()
                 }
 
             };        
           })
         }; 
 
-        $scope.exitAdd = function(){
-          $scope.pos_skill.remove()
-           $state.go('app.position',{},{reload:true,inherit: false});
-
-        }
        
-        $scope.editData = function(){
+        $scope.editData = function(c){
+            console.log($scope.formData.position_id);
+            /*var z = 0;     
+            if (c == "1") {
+                for (var i = 0; i < $scope.pp.length; i++) {
+                    if(this.formData.department_id == $scope.pp[i].department_id && c == $scope.pp[i].is_head){
+                        z++;
+                        console.log(z);
+                    }
+                }
+                if (z == 0){
+                    var a = {
+                        position_name         : this.formData.position_name,
+                        responsibilities    : this.formData.responsibilities,
+                        department_id :  this.formData.department_id,
+                        is_head : c
+                    };
+                    var pt = [];
+                    pt.push(a);
+                    console.log(pt);
+                    var params      = '/dataAll';                   // request Api link
+                    var data       = {                             // data sent to Api
+                        type : "positions",
+                        primaryKey : 'position_id', 
+                        primaryKeyVal : $scope.formData.position_id,
+                        formData : pt
+                    };
+                    //var stateToRedirect = 'app.position';
+                    CrudOperation.update_no_redirect(params, data);
+                    console.log("edit");
 
+                } else if(z !== 0){
+                    alert("Sorry, Head of Department is busy.");
+                    // $state.go('app.position',{},{reload:true});
+                }
+            }
+
+            if (c == "0"){
+                var a = {
+                    position_name         : this.formData.position_name,
+                    responsibilities    : this.formData.responsibilities,
+                    department_id :  this.formData.department_id,
+                    is_head : c
+                };
+                var pt = [];
+                pt.push(a);
+                //console.log(pt);
+                var params      = '/dataAll';                   // request Api link
+                var data       = {                             // data sent to Api
+                    type : "positions",
+                    primaryKey : 'position_id', 
+                    primaryKeyVal : $scope.formData.position_id,
+                    formData : pt
+                };
+                //var stateToRedirect = 'app.position';
+                CrudOperation.update_no_redirect(params, data);
+                console.log("edit");
+
+                }*/
+                    
                     var params     = '/dataAll';                  // request Api link
                     var dataUpdate = {                             // field column need to update
                                         position_name         : $scope.formData.position_name,
@@ -213,9 +271,59 @@ var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
                                       primaryKeyVal : $scope.formData.position_id,
                                       formData : dataUpdate
                         };
-                    var stateToRedirect = 'app.position';           // State that will redirect after update process success
-                    CrudOperation.update(params, data, stateToRedirect);  
-                } 
+                    //var stateToRedirect = 'app.position';           // State that will redirect after update process success
+                    CrudOperation.update_no_redirect(params, data);  
+                    $scope.pos_skill.show();
+                   
+                    
+        } 
+
+        $scope.editrequired  = function(cm){
+            var pid = $scope.formData.position_id;
+            var end = 0;
+            var cc = [];
+            angular.forEach(cm, function(value, key) {
+                this.push(value);
+            }, cc);
+
+            console.log(cc); 
+
+            for (var i = 0; i < cc.length; i++) {
+                var counter = 0;
+                for (var a = 0; a < $scope.poskill.length; a++) {
+                    if ($scope.poskill[a].position_id == $scope.formData.position_id && cc[i] == $scope.poskill[a].skill_id) {
+                        counter++;
+                        console.log(counter);
+                    };
+                };
+                if(counter == 0){
+                    var dataSkill = "";
+                    dataSkill = cc[i].toString();
+                    //console.log(a);
+
+                        var test = {
+                            position_id : pid,
+                            skill_id : dataSkill
+                        }
+                        console.log(test);
+
+                        var ps = [];
+                        ps.push(test);
+                        //console.log(ps);
+                        var params      = '/dataAll';                   // request Api link
+                        var data        = {                             // data sent to Api
+                                  type : "positions_skills", 
+                                  formData : ps
+                        };
+                        var stateToRedirect = 'app.position';
+                        $scope.pos_skill.hide()
+                        CrudOperation.add(params, data, stateToRedirect);
+                    console.log("add skill to positions_skills")
+                }
+
+            };
+             
+        }
 
          $scope.deleteData = function(p) {
                     var params = '/dataAll/type/positions/key/position_id/val/'+p.position_id;
@@ -226,6 +334,18 @@ var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
         $scope.backHome = function(){
             UniversalFunction.home_button();
           }
+
+         $scope.exitAdd = function(){
+          $scope.pos_skill.hide()
+           $state.go('app.position');
+
+        }
+         $scope.exitEdit = function(){
+          
+           $state.go('app.position');
+           $scope.formData = "";
+        }
+       
 
 
 })
