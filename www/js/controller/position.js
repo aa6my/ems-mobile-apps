@@ -326,7 +326,7 @@ var apps = angular.module('positionModule', ['ionic','ui.bootstrap']);
         }
 
          $scope.deleteData = function(p) {
-                    var params = '/dataAll/type/positions/key/position_id/val/'+p.position_id;
+                    var params = '/dataAll/type/positions-positions_skills/key/position_id-position_id/val/'+p.position_id+'-'+p.position_id;
                     CrudOperation.delete(params);
                 }
         /*================================ End Add function ================================*/

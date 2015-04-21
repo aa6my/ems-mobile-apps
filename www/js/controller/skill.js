@@ -121,7 +121,7 @@ var apps = angular.module('skillModule', ['ionic']);
                 } 
 
          $scope.deleteData = function(skill) {
-                    var params = '/dataAll/type/skills/key/skill_id/val/'+skill.skill_id;
+                     var params = '/dataAll/type/skills-positions_skills/key/skill_id-skill_id/val/'+skill.skill_id+'-'+skill.skill_id;
                     CrudOperation.delete(params);
                 }
         /*================================ End Add function ================================*/

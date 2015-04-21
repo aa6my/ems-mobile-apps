@@ -101,9 +101,11 @@ var apps = angular.module('skillcatModule', ['ionic']);
                 } 
 
          $scope.deleteData = function(skc) {
-                    var params = '/dataAll/type/skills_categories/key/category_id/val/'+skc.category_id;
+          
+          
+               var params = '/dataAll/type/skills_categories-skills/key/category_id-parent_category/val/'+skc.category_id+'-'+skc.category_id;
                     CrudOperation.delete(params);
-                }
+          }
         /*================================ End Add,edit,delete function ================================*/
 
         $scope.backHome = function(){
