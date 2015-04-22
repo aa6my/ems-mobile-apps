@@ -19,7 +19,8 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
                           'departmentModule',
                           'resignModule',
                           'positionModule',
-                          'trackingModule'
+                          'trackingModule',
+                          'companyModule'
 
                           ])
 
@@ -181,6 +182,14 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap',
     views: {
       'menuContent': {
         templateUrl: "templates/company.html"
+      }
+    }
+  })
+  .state('app.companyAdd_Edit', {
+    url: "/companyAdd_Edit",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/companyAdd_Edit.html"
       }
     }
   })
