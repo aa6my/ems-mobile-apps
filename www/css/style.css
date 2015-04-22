@@ -2,6 +2,7 @@
     .sidebg {
         background-color: #3f4041;
     }
+
     
     .sidebg .item, .sidebg .item-content, .sidebg .item-complex{
         background-color: rgba(0,0,0,0);
@@ -73,3 +74,15 @@
 .three-stars { background: url(images/sprite.png) no-repeat 0 -30px; }
 .two-stars { background: url(images/sprite.png) no-repeat 0 -45px; }
 .one-stars { background: url(images/sprite.png) no-repeat 0 -60px;  }
+    
+    .card-hearder{
+        background-color: #475E73;
+        color: #FFF;
+    }
+
+    .card-content {
+        
+        font-size: 18px;
+        font-family: "Times New Roman", Times, serif;
+   
+    }
